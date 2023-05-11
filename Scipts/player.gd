@@ -69,8 +69,8 @@ func _input(event):
 		head.rotate_y(event.relative.x * sensitivity * -1)
 		camera.rotate_x(event.relative.y * sensitivity * -1)
 		camera.rotation.x = clampf(camera.rotation.x, deg_to_rad(-80), deg_to_rad(80))
-		#gun.rotate_x(event.relative.y * sensitivity * -1)
-		#gun.rotation.x = clampf(gun.rotation.x, deg_to_rad(-80), deg_to_rad(80))
+		gun.rotate_x(event.relative.y * sensitivity * -1)
+		gun.rotation.x = clampf(gun.rotation.x, deg_to_rad(-80), deg_to_rad(80))
 		
 		
 func _process(delta):
@@ -79,7 +79,7 @@ func _process(delta):
 	
 	shoot_raycast.set_target_position(Vector3(0.0, 0.0, -1.0) * ray_distance)
 	shoot_target = shoot_raycast.get_collision_point();
-	update_aim()
+	#update_aim()
 		
 	
 func update_aim():
