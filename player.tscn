@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://cgg3c110326qu"]
+
+[ext_resource type="Script" path="res://Scipts/player.gd" id="1_y8cep"]
+[ext_resource type="Environment" uid="uid://cn42io4i8kop5" path="res://Environment.tres" id="2_wg3ro"]
+[ext_resource type="ArrayMesh" uid="uid://ivjhv4d0pm5p" path="res://Meshes/Gun/Rifle_Body.res" id="3_wg3jm"]
+[ext_resource type="ArrayMesh" uid="uid://beqpauwn8eylu" path="res://Meshes/Gun/Rifle_Magazine.res" id="4_vffpi"]
+[ext_resource type="ArrayMesh" uid="uid://cjvxkco3kd2am" path="res://Meshes/Gun/Rifle_Bolt.res" id="5_04wa1"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_um0hy"]
+
+[node name="Player" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("1_y8cep")
+sensitivity = 0.005
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_um0hy")
+
+[node name="Head" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+environment = ExtResource("2_wg3ro")
+
+[node name="Shoot_Target" type="RayCast3D" parent="Head/Camera3D"]
+target_position = Vector3(0, 0, -1)
+
+[node name="Gun" type="Node3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="Rifle_Body" type="MeshInstance3D" parent="Head/Gun"]
+transform = Transform3D(-2.18557e-09, 0, 0.05, 0, 0.05, 0, -0.05, 0, -2.18557e-09, 0.23, 0, -0.838)
+mesh = ExtResource("3_wg3jm")
+skeleton = NodePath("")
+
+[node name="Magazine" type="MeshInstance3D" parent="Head/Gun/Rifle_Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.059, -5.874, 0)
+mesh = ExtResource("4_vffpi")
+skeleton = NodePath("")
+
+[node name="Bolt" type="MeshInstance3D" parent="Head/Gun/Rifle_Body"]
+mesh = ExtResource("5_04wa1")
+skeleton = NodePath("")

@@ -1,0 +1,22 @@
+[gd_resource type="Shader" format=3 uid="uid://bu2g7cuirfwh2"]
+
+[resource]
+code = "shader_type spatial;
+
+uniform sampler2D sand_normal_map;
+
+uniform float sand_normal_size : hint_range(1.0, 100.0) = 10.0;
+
+uniform vec3 sand_color : source_color;
+uniform float roughness : hint_range(0.0, 1.0) = 1.0;
+uniform float metallic : hint_range(0.0, 1.0) = 0.0;
+
+void fragment(){
+	vec3 sand_normal = texture(sand_normal_map, vec2(fract(UV.x * sand_normal_size), fract(UV.y * sand_normal_size))).rgb;
+	
+	NORMAL_MAP = sand_normal;
+	ALBEDO = sand_color;
+	ROUGHNESS = roughness;
+	METALLIC = metallic;
+}
+"

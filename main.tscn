@@ -1,0 +1,81 @@
+[gd_scene load_steps=16 format=3 uid="uid://catl3ybeyl1hl"]
+
+[ext_resource type="PackedScene" uid="uid://cgg3c110326qu" path="res://player.tscn" id="1_3frmu"]
+[ext_resource type="Environment" uid="uid://cn42io4i8kop5" path="res://Environment.tres" id="2_04u7r"]
+[ext_resource type="Shader" path="res://Shaders/PlaneVertex.gdshader" id="2_xw0l4"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fyal0"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ul0p5"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_p6bhk"]
+width = 5430
+height = 5430
+noise = SubResource("FastNoiseLite_ul0p5")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wh0cp"]
+roughness_texture = SubResource("NoiseTexture2D_p6bhk")
+rim = 0.48
+rim_tint = 0.76
+clearcoat_roughness = 0.71
+
+[sub_resource type="BoxMesh" id="BoxMesh_thae2"]
+lightmap_size_hint = Vector2i(14, 21)
+material = SubResource("StandardMaterial3D_wh0cp")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_x6avn"]
+noise_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rdso1"]
+noise = SubResource("FastNoiseLite_x6avn")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_uk5kp"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_kmlv3"]
+as_normal_map = true
+noise = SubResource("FastNoiseLite_uk5kp")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kortj"]
+render_priority = 0
+shader = ExtResource("2_xw0l4")
+shader_parameter/noise = SubResource("NoiseTexture2D_rdso1")
+shader_parameter/normalMap = SubResource("NoiseTexture2D_kmlv3")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_0i6cj"]
+material = SubResource("ShaderMaterial_kortj")
+subdivide_width = 128
+subdivide_depth = 128
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_b88sk"]
+size = Vector3(60, 2, 60)
+
+[node name="Main" type="Node"]
+
+[node name="Ground" type="StaticBody3D" parent="."]
+transform = Transform3D(60, 0, 0, 0, 2, 0, 0, 0, 60, 0, -1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("BoxShape3D_fyal0")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("BoxMesh_thae2")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.221429, 0.0229274, 0.974907, -0.975133, 0.0146499, 0.221136, -0.00921219, -0.99963, 0.0256011, 36.074, 31.1285, 0)
+shadow_enabled = true
+
+[node name="Player" parent="." instance=ExtResource("1_3frmu")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("2_04u7r")
+
+[node name="Ground2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 60)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground2"]
+transform = Transform3D(30, 0, 0, 0, 1, 0, 0, 0, 30, 0, 0, 0)
+mesh = SubResource("PlaneMesh_0i6cj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+shape = SubResource("BoxShape3D_b88sk")
