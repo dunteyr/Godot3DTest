@@ -26,8 +26,6 @@ func _ready():
 #happens 60 times a frame
 func _physics_process(delta):
 	
-	fire_projectile()
-	
 	var direction = Vector3.ZERO;
 	#get inputs
 	if(Input.is_action_pressed("move_left")):
@@ -86,6 +84,7 @@ func _process(delta):
 	shoot_raycast.set_target_position(Vector3(0.0, 0.0, -1.0) * ray_distance)
 	shoot_target = shoot_raycast.get_collision_point();
 	#update_aim()
+	fire_projectile()
 		
 	
 func update_aim():
