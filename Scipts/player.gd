@@ -15,6 +15,7 @@ extends CharacterBody3D
 @onready var projectile = preload("res://Prefabs/basic_projectile.tscn")
 @onready var proj_spawn : Node3D = get_node("Head/Gun/Rifle_Body/Proj_Spawn")
 @onready var shoot_raycast : RayCast3D = get_node("Head/Camera3D/Shoot_Target")
+@onready var animation : AnimationPlayer = get_node("Head/Gun/AnimationPlayer")
 
 var target_velocity = Vector3.ZERO
 var shoot_target = Vector3.ZERO;
@@ -90,6 +91,7 @@ func _input(event):
 		elif event.is_action_released("fire"):
 			is_firing = false
 			fire_timer = fire_rate
+			animation.stop()
 		
 func _process(delta):
 	if Input.is_action_pressed("pause"):
@@ -113,6 +115,7 @@ func fire_projectile(delta):
 		fire_timer -= delta
 		#fire once the timer hits zero
 		if fire_timer <= 0:
+			animation.play("recoil")
 			#create bullet and set rotation/position
 			var bullet : RigidBody3D = projectile.instantiate()
 			current_scene.add_child(bullet)
