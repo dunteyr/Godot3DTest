@@ -41,3 +41,6 @@ skeleton = NodePath("")
 [node name="Bolt" type="MeshInstance3D" parent="Head/Gun/Rifle_Body"]
 mesh = ExtResource("5_04wa1")
 skeleton = NodePath("")
+
+[node name="Proj_Spawn" type="Node3D" parent="Head/Gun/Rifle_Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.377, 0.210949, 4.76837e-07)

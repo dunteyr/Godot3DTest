@@ -1,4 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://dtgvh18hed5fe"]
+[gd_scene load_steps=6 format=3 uid="uid://dtgvh18hed5fe"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_y0rg4"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ok12j"]
 albedo_color = Color(0.909804, 0.760784, 0, 1)
@@ -9,22 +11,25 @@ roughness = 0.26
 material = SubResource("StandardMaterial3D_ok12j")
 
 [sub_resource type="SphereMesh" id="SphereMesh_k0r11"]
-radius = 0.018
-height = 0.2
+radius = 0.032
+height = 0.061
 
 [sub_resource type="Curve" id="Curve_7vj6d"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[node name="Projectile" type="Node3D"]
+[node name="Projectile" type="RigidBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1.91069e-16, -4.37114e-09, 0.1, -0.1, -4.37114e-09, -1.32349e-23, 4.37114e-09, -0.1, -4.37114e-09, 0, 0, -0.05)
+shape = SubResource("SphereShape3D_y0rg4")
 
 [node name="Bullet" type="MeshInstance3D" parent="."]
-transform = Transform3D(-4.37114e-09, -0.1, 0, 0.1, -4.37114e-09, 0, 0, 0, 0.1, 0, 0, 0)
+transform = Transform3D(1.91069e-16, -4.37114e-09, 0.1, -0.1, -4.37114e-09, 0, 4.37114e-09, -0.1, -4.37114e-09, 0, 0, 0)
 mesh = SubResource("CapsuleMesh_g1dm3")
 
-[node name="CPUParticles3D" type="CPUParticles3D" parent="Bullet"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0141e-07, -2.31999, 0)
-emitting = false
+[node name="Smoke_Trail" type="CPUParticles3D" parent="Bullet"]
+transform = Transform3D(1, 0, 3.38813e-21, 0, 1, 0, 3.38813e-21, 0, 1, -1.39007e-07, -1.45987, 3.75971e-08)
 amount = 100
 lifetime = 0.8
 lifetime_randomness = 1.0

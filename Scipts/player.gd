@@ -5,10 +5,14 @@ extends CharacterBody3D
 @export var jump_force = 20
 @export var fall_acceleration = 75
 @export var sensitivity = 0.01
+@export var bullet_speed = 200
 
+@onready var current_scene = get_tree().get_root()
 @onready var head : Node3D = get_node("Head")
 @onready var camera : Camera3D = get_node("Head/Camera3D")
 @onready var gun : Node3D = get_node("Head/Gun")
+@onready var projectile = preload("res://Prefabs/basic_projectile.tscn")
+@onready var proj_spawn : Node3D = get_node("Head/Gun/Rifle_Body/Proj_Spawn")
 @onready var shoot_raycast : RayCast3D = get_node("Head/Camera3D/Shoot_Target")
 
 var target_velocity = Vector3.ZERO
@@ -21,6 +25,8 @@ func _ready():
 	
 #happens 60 times a frame
 func _physics_process(delta):
+	
+	fire_projectile()
 	
 	var direction = Vector3.ZERO;
 	#get inputs
@@ -85,3 +91,23 @@ func _process(delta):
 func update_aim():
 	if shoot_target != Vector3.ZERO:
 		gun.look_at(shoot_target)
+		
+
+func fire_projectile():
+	
+	if Input.is_action_just_pressed("fire"):
+		
+		#create bullet and set rotation/position
+		var bullet : RigidBody3D = projectile.instantiate()
+		current_scene.add_child(bullet)
+		bullet.set_global_position(proj_spawn.get_global_position())
+		bullet.set_global_rotation(gun.get_global_rotation())
+		
+		#send it
+		bullet.apply_impulse(-bullet.basis.z * bullet_speed)
+		#turn on smoke trail
+		bullet.find_child("Smoke_Trail").emitting = true
+		
+		
+		
+		
