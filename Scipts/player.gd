@@ -5,6 +5,7 @@ extends CharacterBody3D
 @export var jump_force = 20
 @export var fall_acceleration = 75
 @export var sensitivity = 0.01
+@export var fire_rate = 0.05
 @export var bullet_speed = 200
 
 @onready var current_scene = get_tree().get_root()
@@ -18,6 +19,8 @@ extends CharacterBody3D
 var target_velocity = Vector3.ZERO
 var shoot_target = Vector3.ZERO;
 var ray_distance = 100
+var is_firing = false
+var fire_timer = fire_rate
 
 #Happens once at beginning
 func _ready():
@@ -75,7 +78,18 @@ func _input(event):
 		camera.rotation.x = clampf(camera.rotation.x, deg_to_rad(-80), deg_to_rad(80))
 		gun.rotate_x(event.relative.y * sensitivity * -1)
 		gun.rotation.x = clampf(gun.rotation.x, deg_to_rad(-80), deg_to_rad(80))
+	
+	if event is InputEvent:
 		
+		#sets isFiring once fire is clicked/held down
+		if event.is_action_pressed("fire"):
+			if !is_firing:
+				is_firing = true
+		
+		#sets isFiring to false and resets fire rate timer
+		elif event.is_action_released("fire"):
+			is_firing = false
+			fire_timer = fire_rate
 		
 func _process(delta):
 	if Input.is_action_pressed("pause"):
@@ -84,7 +98,7 @@ func _process(delta):
 	shoot_raycast.set_target_position(Vector3(0.0, 0.0, -1.0) * ray_distance)
 	shoot_target = shoot_raycast.get_collision_point();
 	#update_aim()
-	fire_projectile()
+	fire_projectile(delta)
 		
 	
 func update_aim():
@@ -92,21 +106,22 @@ func update_aim():
 		gun.look_at(shoot_target)
 		
 
-func fire_projectile():
+func fire_projectile(delta):
 	
-	if Input.is_action_just_pressed("fire"):
+	if is_firing:
+		#count down every frame
+		fire_timer -= delta
+		#fire once the timer hits zero
+		if fire_timer <= 0:
+			#create bullet and set rotation/position
+			var bullet : RigidBody3D = projectile.instantiate()
+			current_scene.add_child(bullet)
+			bullet.set_global_position(proj_spawn.get_global_position())
+			bullet.set_global_rotation(gun.get_global_rotation())
 		
-		#create bullet and set rotation/position
-		var bullet : RigidBody3D = projectile.instantiate()
-		current_scene.add_child(bullet)
-		bullet.set_global_position(proj_spawn.get_global_position())
-		bullet.set_global_rotation(gun.get_global_rotation())
-		
-		#send it
-		bullet.apply_impulse(-bullet.basis.z * bullet_speed)
-		#turn on smoke trail
-		bullet.find_child("Smoke_Trail").emitting = true
-		
-		
-		
-		
+			#send it
+			bullet.apply_impulse(-bullet.basis.z * bullet_speed)
+			#turn on smoke trail
+			bullet.find_child("Smoke_Trail").emitting = true
+			#reset timer for next bullet
+			fire_timer = fire_rate

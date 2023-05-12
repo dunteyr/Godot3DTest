@@ -16,7 +16,6 @@ func _process(delta):
 	
 
 func on_bullet_collision(node):
-	print("collision")
 	
 	place_impact()
 	queue_free()
