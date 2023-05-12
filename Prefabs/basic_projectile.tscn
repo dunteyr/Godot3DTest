@@ -1,4 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://dtgvh18hed5fe"]
+[gd_scene load_steps=7 format=3 uid="uid://dtgvh18hed5fe"]
+
+[ext_resource type="Script" path="res://Scipts/basic_projectile.gd" id="1_qnxb2"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_y0rg4"]
 
@@ -20,6 +22,7 @@ point_count = 2
 
 [node name="Projectile" type="RigidBody3D"]
 continuous_cd = true
+script = ExtResource("1_qnxb2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1.91069e-16, -4.37114e-09, 0.1, -0.1, -4.37114e-09, -1.32349e-23, 4.37114e-09, -0.1, -4.37114e-09, 0, 0, -0.05)
