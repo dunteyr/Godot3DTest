@@ -19,6 +19,7 @@ _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [node name="Projectile" type="RigidBody3D"]
+continuous_cd = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1.91069e-16, -4.37114e-09, 0.1, -0.1, -4.37114e-09, -1.32349e-23, 4.37114e-09, -0.1, -4.37114e-09, 0, 0, -0.05)
