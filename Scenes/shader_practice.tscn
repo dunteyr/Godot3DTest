@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://cd7u8pbmhu0f5"]
 
-[ext_resource type="Shader" path="res://Shaders/shader_practice.gdshader" id="1_4js0n"]
+[ext_resource type="Shader" path="res://Shaders/shader_practice.gdshader" id="1_ceqgb"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_q11y6"]
 render_priority = 0
-shader = ExtResource("1_4js0n")
+shader = ExtResource("1_ceqgb")
 
 [sub_resource type="QuadMesh" id="QuadMesh_sjfar"]
 material = SubResource("ShaderMaterial_q11y6")

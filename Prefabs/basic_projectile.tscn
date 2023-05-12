@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://dtgvh18hed5fe"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ok12j"]
+albedo_color = Color(0.909804, 0.760784, 0, 1)
+metallic = 1.0
+roughness = 0.26
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_g1dm3"]
+material = SubResource("StandardMaterial3D_ok12j")
+
+[sub_resource type="SphereMesh" id="SphereMesh_k0r11"]
+radius = 0.018
+height = 0.2
+
+[sub_resource type="Curve" id="Curve_7vj6d"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="Projectile" type="Node3D"]
+
+[node name="Bullet" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-09, -0.1, 0, 0.1, -4.37114e-09, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_g1dm3")
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="Bullet"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0141e-07, -2.31999, 0)
+emitting = false
+amount = 100
+lifetime = 0.8
+lifetime_randomness = 1.0
+mesh = SubResource("SphereMesh_k0r11")
+emission_shape = 1
+emission_sphere_radius = 0.01
+direction = Vector3(1, 1, 1)
+gravity = Vector3(0, 0.3, 0)
+initial_velocity_max = 0.4
+scale_amount_max = 1.3
+scale_amount_curve = SubResource("Curve_7vj6d")

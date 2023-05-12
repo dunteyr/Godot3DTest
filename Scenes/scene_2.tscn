@@ -1,8 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://bdjd6viqco058"]
+[gd_scene load_steps=15 format=3 uid="uid://ch4xwywgkh15b"]
 
 [ext_resource type="ArrayMesh" uid="uid://xsauowapmg6u" path="res://Meshes/island_mesh.res" id="1_2tppm"]
 [ext_resource type="Shader" path="res://Shaders/ocean_final.gdshader" id="1_e6fl0"]
-[ext_resource type="PackedScene" uid="uid://cgg3c110326qu" path="res://player.tscn" id="1_kxiwf"]
+[ext_resource type="PackedScene" uid="uid://cgg3c110326qu" path="res://Prefabs/player.tscn" id="1_kxiwf"]
 [ext_resource type="Environment" uid="uid://cn42io4i8kop5" path="res://Environment.tres" id="3_2s0my"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_ncvra"]

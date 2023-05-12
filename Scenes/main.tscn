@@ -1,6 +1,6 @@
-[gd_scene load_steps=16 format=3 uid="uid://catl3ybeyl1hl"]
+[gd_scene load_steps=16 format=3 uid="uid://c7o7ahb42syps"]
 
-[ext_resource type="PackedScene" uid="uid://cgg3c110326qu" path="res://player.tscn" id="1_3frmu"]
+[ext_resource type="PackedScene" uid="uid://cgg3c110326qu" path="res://Prefabs/player.tscn" id="1_3frmu"]
 [ext_resource type="Environment" uid="uid://cn42io4i8kop5" path="res://Environment.tres" id="2_04u7r"]
 [ext_resource type="Shader" path="res://Shaders/PlaneVertex.gdshader" id="2_xw0l4"]
 
