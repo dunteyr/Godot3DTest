@@ -1,10 +1,11 @@
 [gd_scene load_steps=4 format=3 uid="uid://cd7u8pbmhu0f5"]
 
-[ext_resource type="Shader" path="res://Shaders/shader_practice.gdshader" id="1_ceqgb"]
+[ext_resource type="Shader" path="res://Shaders/Practice_Shaders/distance_fields.gdshader" id="1_u30kt"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_q11y6"]
 render_priority = 0
-shader = ExtResource("1_ceqgb")
+shader = ExtResource("1_u30kt")
+shader_parameter/val = 0.055
 
 [sub_resource type="QuadMesh" id="QuadMesh_sjfar"]
 material = SubResource("ShaderMaterial_q11y6")

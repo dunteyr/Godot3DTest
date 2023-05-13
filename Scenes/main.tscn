@@ -1,8 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://c7o7ahb42syps"]
+[gd_scene load_steps=19 format=3 uid="uid://c7o7ahb42syps"]
 
 [ext_resource type="PackedScene" uid="uid://cgg3c110326qu" path="res://Prefabs/player.tscn" id="1_3frmu"]
 [ext_resource type="Environment" uid="uid://cn42io4i8kop5" path="res://Environment.tres" id="2_04u7r"]
 [ext_resource type="Shader" path="res://Shaders/PlaneVertex.gdshader" id="2_xw0l4"]
+[ext_resource type="PackedScene" uid="uid://dcjne84v6gfcv" path="res://Prefabs/flat_rock.tscn" id="4_yyj2t"]
+[ext_resource type="PackedScene" uid="uid://bb87k4gpwy4su" path="res://Prefabs/tall_rock.tscn" id="5_agbqa"]
+[ext_resource type="PackedScene" uid="uid://vkvywqbxa212" path="res://Prefabs/rock_basic.tscn" id="6_42xia"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fyal0"]
 
@@ -14,6 +17,7 @@ height = 5430
 noise = SubResource("FastNoiseLite_ul0p5")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wh0cp"]
+metallic = 1.0
 roughness_texture = SubResource("NoiseTexture2D_p6bhk")
 rim = 0.48
 rim_tint = 0.76
@@ -79,3 +83,9 @@ mesh = SubResource("PlaneMesh_0i6cj")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 shape = SubResource("BoxShape3D_b88sk")
+
+[node name="Flat_Rock" parent="." instance=ExtResource("4_yyj2t")]
+
+[node name="Tall_Rock" parent="." instance=ExtResource("5_agbqa")]
+
+[node name="Rock_Basic" parent="." instance=ExtResource("6_42xia")]

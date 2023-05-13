@@ -8,6 +8,21 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_um0hy"]
 
+[sub_resource type="Animation" id="Animation_6nmm0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Rifle_Body:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.5708, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_8eg3r"]
 resource_name = "recoil"
 length = 0.05
@@ -40,21 +55,6 @@ tracks/2/keys = {
 "values": [Vector3(0, 1.5708, 0), Vector3(0, 1.5708, 0.0174533), Vector3(0, 1.5708, 0.0226893), Vector3(0, 1.5708, 0.0174533), Vector3(0, 1.5708, -0.0174533)]
 }
 
-[sub_resource type="Animation" id="Animation_6nmm0"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Rifle_Body:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 1.5708, 0)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5n1gk"]
 _data = {
 "RESET": SubResource("Animation_6nmm0"),
@@ -82,7 +82,7 @@ target_position = Vector3(0, 0, -1)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [node name="Rifle_Body" type="MeshInstance3D" parent="Head/Gun"]
-transform = Transform3D(-2.18557e-09, 0, 0.05, 0, 0.05, 0, -0.05, 0, -2.18557e-09, 0.23, 0, -0.838)
+transform = Transform3D(-1.81e-07, 0, 0.05, 0, 0.05, 0, -0.05, 0, -1.81e-07, 0.23, 0, -0.807832)
 mesh = ExtResource("3_wg3jm")
 skeleton = NodePath("")
 
@@ -92,7 +92,7 @@ mesh = ExtResource("4_vffpi")
 skeleton = NodePath("")
 
 [node name="Bolt" type="MeshInstance3D" parent="Head/Gun/Rifle_Body"]
-transform = Transform3D(1, 7.45058e-09, -3.55271e-15, -7.45058e-09, 1, -2.77556e-16, 1.06581e-14, -1.66533e-16, 1, 0, 0, 0)
+transform = Transform3D(1, 7.45058e-09, -3.55271e-15, -7.45058e-09, 1, -2.77556e-16, 1.06581e-14, -1.66533e-16, 1, -3.9243, 0.059992, 0)
 mesh = ExtResource("5_04wa1")
 skeleton = NodePath("")
 
@@ -100,6 +100,7 @@ skeleton = NodePath("")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.377, 0.210949, 4.76837e-07)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Head/Gun"]
+speed_scale = 0.1
 libraries = {
 "": SubResource("AnimationLibrary_5n1gk")
 }
