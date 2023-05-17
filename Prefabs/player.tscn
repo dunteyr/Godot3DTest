@@ -100,7 +100,6 @@ skeleton = NodePath("")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.377, 0.210949, 4.76837e-07)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Head/Gun"]
-speed_scale = 0.1
 libraries = {
 "": SubResource("AnimationLibrary_5n1gk")
 }

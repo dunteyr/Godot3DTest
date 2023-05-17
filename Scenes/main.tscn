@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://c7o7ahb42syps"]
+[gd_scene load_steps=33 format=3 uid="uid://c7o7ahb42syps"]
 
 [ext_resource type="PackedScene" uid="uid://cgg3c110326qu" path="res://Prefabs/player.tscn" id="1_3frmu"]
 [ext_resource type="Environment" uid="uid://cn42io4i8kop5" path="res://Environment.tres" id="2_04u7r"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dcjne84v6gfcv" path="res://Prefabs/flat_rock.tscn" id="4_yyj2t"]
 [ext_resource type="PackedScene" uid="uid://bb87k4gpwy4su" path="res://Prefabs/tall_rock.tscn" id="5_agbqa"]
 [ext_resource type="PackedScene" uid="uid://vkvywqbxa212" path="res://Prefabs/rock_basic.tscn" id="6_42xia"]
+[ext_resource type="Shader" path="res://Shaders/stone.gdshader" id="7_f1bnv"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fyal0"]
 
@@ -53,6 +54,86 @@ subdivide_depth = 128
 [sub_resource type="BoxShape3D" id="BoxShape3D_b88sk"]
 size = Vector3(60, 2, 60)
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_o380u"]
+noise_type = 3
+seed = 1
+frequency = 0.023
+fractal_type = 2
+fractal_octaves = 1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_w5nx7"]
+width = 2048
+height = 2048
+seamless = true
+as_normal_map = true
+noise = SubResource("FastNoiseLite_o380u")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_aomyh"]
+frequency = 0.494
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_10n12"]
+width = 1024
+height = 1024
+seamless = true
+noise = SubResource("FastNoiseLite_aomyh")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_x4pyr"]
+frequency = 0.047
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_i7crx"]
+width = 2048
+height = 2048
+seamless = true
+as_normal_map = true
+noise = SubResource("FastNoiseLite_x4pyr")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ehgww"]
+noise_type = 2
+seed = 2
+frequency = 0.024
+fractal_type = 0
+cellular_jitter = 0.696
+domain_warp_enabled = true
+domain_warp_fractal_octaves = 1
+domain_warp_fractal_lacunarity = 6.481
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cefmm"]
+width = 2048
+height = 2048
+seamless = true
+noise = SubResource("FastNoiseLite_ehgww")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_2u1vn"]
+frequency = 0.023
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_eghcg"]
+width = 2048
+height = 2048
+seamless = true
+noise = SubResource("FastNoiseLite_2u1vn")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_trlg5"]
+render_priority = 0
+shader = ExtResource("7_f1bnv")
+shader_parameter/main_color = Color(0.564706, 0.564706, 0.564706, 1)
+shader_parameter/secondary_color = Color(0.737255, 0.737255, 0.737255, 1)
+shader_parameter/roughness_edge = 0.165
+shader_parameter/specular = 0.802
+shader_parameter/main_noise_strength = 0.565
+shader_parameter/normal_strength = 0.521
+shader_parameter/tile_size = 1.0
+shader_parameter/voro = SubResource("NoiseTexture2D_cefmm")
+shader_parameter/voro_no = SubResource("NoiseTexture2D_eghcg")
+shader_parameter/main_normal = SubResource("NoiseTexture2D_w5nx7")
+shader_parameter/second_normal = SubResource("NoiseTexture2D_i7crx")
+shader_parameter/roughness_noise = SubResource("NoiseTexture2D_10n12")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ujnql"]
+material = SubResource("ShaderMaterial_trlg5")
+size = Vector2(60, 60)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_soqbn"]
+
 [node name="Main" type="Node"]
 
 [node name="Ground" type="StaticBody3D" parent="."]
@@ -89,3 +170,13 @@ shape = SubResource("BoxShape3D_b88sk")
 [node name="Tall_Rock" parent="." instance=ExtResource("5_agbqa")]
 
 [node name="Rock_Basic" parent="." instance=ExtResource("6_42xia")]
+
+[node name="Stone_Ground" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Stone_Ground"]
+mesh = SubResource("PlaneMesh_ujnql")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stone_Ground"]
+transform = Transform3D(60, 0, 0, 0, 2, 0, 0, 0, 60, 0, -1, 0)
+shape = SubResource("BoxShape3D_soqbn")
