@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://c7o7ahb42syps"]
+[gd_scene load_steps=35 format=3 uid="uid://c7o7ahb42syps"]
 
 [ext_resource type="PackedScene" uid="uid://cgg3c110326qu" path="res://Prefabs/player.tscn" id="1_3frmu"]
 [ext_resource type="Environment" uid="uid://cn42io4i8kop5" path="res://Environment.tres" id="2_04u7r"]
@@ -7,6 +7,13 @@
 [ext_resource type="PackedScene" uid="uid://bb87k4gpwy4su" path="res://Prefabs/tall_rock.tscn" id="5_agbqa"]
 [ext_resource type="PackedScene" uid="uid://vkvywqbxa212" path="res://Prefabs/rock_basic.tscn" id="6_42xia"]
 [ext_resource type="Shader" path="res://Shaders/stone.gdshader" id="7_f1bnv"]
+[ext_resource type="Texture2D" uid="uid://due72wk4lhkk" path="res://Textures/Stone_Noise/Stone_Normal.res" id="8_2b4w5"]
+[ext_resource type="Texture2D" uid="uid://tx1kpspuk5y4" path="res://Textures/Stone_Noise/Stone_Roughness.tres" id="9_nwp3b"]
+[ext_resource type="Texture2D" uid="uid://c21f16wng0ke3" path="res://Textures/Stone_Noise/Stone_Normal_Mod.res" id="10_c3iut"]
+[ext_resource type="Texture2D" uid="uid://chtn3y1bvflq6" path="res://Textures/Stone_Noise/Stone_Voronoi.res" id="11_shp3f"]
+[ext_resource type="Texture2D" uid="uid://ds4ct1h51y6ey" path="res://Textures/Stone_Noise/Stone_Voro_Mod_Noise.res" id="12_vjytg"]
+[ext_resource type="Shader" path="res://Shaders/grass.gdshader" id="13_ws5vs"]
+[ext_resource type="Texture2D" uid="uid://ceofix6s8hipc" path="res://Textures/Grass_Noise/Grass_Noise.res" id="14_qwnk4"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fyal0"]
 
@@ -54,65 +61,7 @@ subdivide_depth = 128
 [sub_resource type="BoxShape3D" id="BoxShape3D_b88sk"]
 size = Vector3(60, 2, 60)
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_o380u"]
-noise_type = 3
-seed = 1
-frequency = 0.023
-fractal_type = 2
-fractal_octaves = 1
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_w5nx7"]
-width = 2048
-height = 2048
-seamless = true
-as_normal_map = true
-noise = SubResource("FastNoiseLite_o380u")
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_aomyh"]
-frequency = 0.494
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_10n12"]
-width = 1024
-height = 1024
-seamless = true
-noise = SubResource("FastNoiseLite_aomyh")
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_x4pyr"]
-frequency = 0.047
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_i7crx"]
-width = 2048
-height = 2048
-seamless = true
-as_normal_map = true
-noise = SubResource("FastNoiseLite_x4pyr")
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_ehgww"]
-noise_type = 2
-seed = 2
-frequency = 0.024
-fractal_type = 0
-cellular_jitter = 0.696
-domain_warp_enabled = true
-domain_warp_fractal_octaves = 1
-domain_warp_fractal_lacunarity = 6.481
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cefmm"]
-width = 2048
-height = 2048
-seamless = true
-noise = SubResource("FastNoiseLite_ehgww")
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_2u1vn"]
-frequency = 0.023
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_eghcg"]
-width = 2048
-height = 2048
-seamless = true
-noise = SubResource("FastNoiseLite_2u1vn")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_trlg5"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iih84"]
 render_priority = 0
 shader = ExtResource("7_f1bnv")
 shader_parameter/main_color = Color(0.564706, 0.564706, 0.564706, 1)
@@ -122,17 +71,42 @@ shader_parameter/specular = 0.802
 shader_parameter/main_noise_strength = 0.565
 shader_parameter/normal_strength = 0.521
 shader_parameter/tile_size = 1.0
-shader_parameter/voro = SubResource("NoiseTexture2D_cefmm")
-shader_parameter/voro_no = SubResource("NoiseTexture2D_eghcg")
-shader_parameter/main_normal = SubResource("NoiseTexture2D_w5nx7")
-shader_parameter/second_normal = SubResource("NoiseTexture2D_i7crx")
-shader_parameter/roughness_noise = SubResource("NoiseTexture2D_10n12")
+shader_parameter/voro = ExtResource("11_shp3f")
+shader_parameter/voro_no = ExtResource("12_vjytg")
+shader_parameter/main_normal = ExtResource("8_2b4w5")
+shader_parameter/second_normal = ExtResource("10_c3iut")
+shader_parameter/roughness_noise = ExtResource("9_nwp3b")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ujnql"]
-material = SubResource("ShaderMaterial_trlg5")
+material = SubResource("ShaderMaterial_iih84")
 size = Vector2(60, 60)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_soqbn"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_0ka5i"]
+domain_warp_enabled = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_a0ue5"]
+width = 1024
+height = 1024
+seamless = true
+as_normal_map = true
+noise = SubResource("FastNoiseLite_0ka5i")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uyy75"]
+render_priority = 0
+shader = ExtResource("13_ws5vs")
+shader_parameter/tile_size = 2.197
+shader_parameter/main_color = Color(0.258824, 0.498039, 0, 1)
+shader_parameter/secondary_color = Color(0.301961, 0.576471, 0, 1)
+shader_parameter/main_noise = ExtResource("14_qwnk4")
+shader_parameter/main_normal = SubResource("NoiseTexture2D_a0ue5")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_n54x1"]
+material = SubResource("ShaderMaterial_uyy75")
+size = Vector2(60, 60)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vbm6b"]
 
 [node name="Main" type="Node"]
 
@@ -180,3 +154,13 @@ mesh = SubResource("PlaneMesh_ujnql")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Stone_Ground"]
 transform = Transform3D(60, 0, 0, 0, 2, 0, 0, 0, 60, 0, -1, 0)
 shape = SubResource("BoxShape3D_soqbn")
+
+[node name="Grass_Ground" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60, 0, 60)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grass_Ground"]
+mesh = SubResource("PlaneMesh_n54x1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grass_Ground"]
+transform = Transform3D(60, 0, 0, 0, 2, 0, 0, 0, 60, 0, -1, 0)
+shape = SubResource("BoxShape3D_vbm6b")
