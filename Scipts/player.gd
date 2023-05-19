@@ -7,6 +7,7 @@ extends CharacterBody3D
 @export var sensitivity = 0.01
 @export var fire_rate = 0.05
 @export var bullet_speed = 200
+@export var recoil_amount = 0.03
 
 @onready var current_scene = get_tree().get_root()
 @onready var head : Node3D = get_node("Head")
@@ -116,6 +117,10 @@ func fire_projectile(delta):
 	if is_firing:
 		#count down every frame
 		fire_timer -= delta
+		#recoil
+		if head.rotation.x < deg_to_rad(79):
+			#head.rotate_x(recoil_amount)
+			head.rotation = head.rotation.lerp(Vector3(head.rotation.x + recoil_amount, 0.0, 0.0), delta)
 		#fire once the timer hits zero
 		if fire_timer <= 0:
 			animation.play("recoil")
@@ -126,7 +131,7 @@ func fire_projectile(delta):
 			current_scene.add_child(bullet)
 			bullet.set_global_position(proj_spawn.get_global_position())
 			bullet.set_global_rotation(gun.get_global_rotation())
-		
+			
 			#send it
 			bullet.apply_impulse(-bullet.basis.z * bullet_speed)
 			#turn on smoke trail
