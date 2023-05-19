@@ -47,7 +47,7 @@ func _physics_process(delta):
 		direction = direction.normalized()
 		
 	#add direction to look direction
-	direction = (head.basis * Vector3(direction.x, direction.y, direction.z)).normalized()
+	direction = (basis * Vector3(direction.x, direction.y, direction.z)).normalized()
 	
 	if(Input.is_action_pressed("sprint")):
 		target_velocity.x = direction.x * (speed + ((1 - sprint_mod) * speed))
@@ -75,11 +75,11 @@ func _input(event):
 	
 	#camera movement and body rotation
 	if event is InputEventMouseMotion:
-		head.rotate_y(event.relative.x * sensitivity * -1)
-		camera.rotate_x(event.relative.y * sensitivity * -1)
-		camera.rotation.x = clampf(camera.rotation.x, deg_to_rad(-80), deg_to_rad(80))
-		gun.rotate_x(event.relative.y * sensitivity * -1)
-		gun.rotation.x = clampf(gun.rotation.x, deg_to_rad(-80), deg_to_rad(80))
+		rotate_y(event.relative.x * sensitivity * -1)
+		head.rotate_x(event.relative.y * sensitivity * -1)
+		head.rotation.x = clampf(head.rotation.x, deg_to_rad(-80), deg_to_rad(80))
+		#gun.rotate_x(event.relative.y * sensitivity * -1)
+		#gun.rotation.x = clampf(gun.rotation.x, deg_to_rad(-80), deg_to_rad(80))
 	
 	if event is InputEvent:
 		
@@ -96,6 +96,9 @@ func _input(event):
 			muzzle_flash.emitting = false
 		
 func _process(delta):
+	
+	print(gun.rotation)
+	
 	if Input.is_action_pressed("pause"):
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	

@@ -21,11 +21,13 @@ func _process(delta):
 	
 	if mouse_mov != null:
 		if mouse_mov > sway_threshold:
-			rotation = rotation.lerp(Vector3(rotation.x,-left_sway_amt, rotation.z), lerp_val * delta)
+			rotation = rotation.lerp(Vector3(rotation.x,-left_sway_amt, 0.0), lerp_val * delta)
 		elif mouse_mov < -sway_threshold:
-			rotation = rotation.lerp(Vector3(rotation.x,right_sway_amt, rotation.z), lerp_val * delta)
+			rotation = rotation.lerp(Vector3(rotation.x,right_sway_amt, 0.0), lerp_val * delta)
 		else:
-			rotation = rotation.lerp(Vector3(rotation.x,0.0,rotation.z), lerp_val * delta)
+			rotation = rotation.lerp(Vector3(rotation.x,0.0, 0.0), lerp_val * delta)
+			
+		
 			
 			
 	
