@@ -97,8 +97,6 @@ func _input(event):
 		
 func _process(delta):
 	
-	print(gun.rotation)
-	
 	if Input.is_action_pressed("pause"):
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	
