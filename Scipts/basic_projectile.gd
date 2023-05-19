@@ -1,5 +1,8 @@
 extends RigidBody3D
 
+@export var max_lifetime = 3.0
+var current_lifetime = 0.0
+
 @onready var impact_particles = preload("res://Prefabs/Particles/bullet_impact.tscn")
 @onready var current_scene = get_tree().get_root()
 
@@ -12,7 +15,11 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	
+	#if the bullet has been alive for too long without collision, delete it
+	current_lifetime += delta
+	if current_lifetime >= max_lifetime:
+		queue_free()
 	
 
 func on_bullet_collision(node):

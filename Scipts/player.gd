@@ -16,6 +16,7 @@ extends CharacterBody3D
 @onready var proj_spawn : Node3D = get_node("Head/Gun/Rifle_Body/Proj_Spawn")
 @onready var shoot_raycast : RayCast3D = get_node("Head/Camera3D/Shoot_Target")
 @onready var animation : AnimationPlayer = get_node("Head/Gun/AnimationPlayer")
+@onready var muzzle_flash : CPUParticles3D = get_node("Head/Gun/Rifle_Body/Muzzle_Flash")
 
 var target_velocity = Vector3.ZERO
 var shoot_target = Vector3.ZERO;
@@ -92,6 +93,7 @@ func _input(event):
 			is_firing = false
 			fire_timer = fire_rate
 			animation.stop()
+			muzzle_flash.emitting = false
 		
 func _process(delta):
 	if Input.is_action_pressed("pause"):
@@ -116,6 +118,8 @@ func fire_projectile(delta):
 		#fire once the timer hits zero
 		if fire_timer <= 0:
 			animation.play("recoil")
+			muzzle_flash.lifetime = fire_rate
+			muzzle_flash.emitting = true
 			#create bullet and set rotation/position
 			var bullet : RigidBody3D = projectile.instantiate()
 			current_scene.add_child(bullet)

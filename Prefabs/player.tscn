@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cgg3c110326qu"]
+[gd_scene load_steps=13 format=3 uid="uid://cgg3c110326qu"]
 
 [ext_resource type="Script" path="res://Scipts/player.gd" id="1_y8cep"]
 [ext_resource type="Environment" uid="uid://cn42io4i8kop5" path="res://Environment.tres" id="2_wg3ro"]
@@ -7,6 +7,23 @@
 [ext_resource type="ArrayMesh" uid="uid://cjvxkco3kd2am" path="res://Meshes/Gun/Rifle_Bolt.res" id="5_04wa1"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_um0hy"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fe16c"]
+albedo_color = Color(1, 0.94902, 0.254902, 1)
+emission_enabled = true
+emission = Color(1, 1, 0.27451, 1)
+emission_energy_multiplier = 6.09
+rim_enabled = true
+rim_tint = 1.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_4obnj"]
+material = SubResource("StandardMaterial3D_fe16c")
+radius = 2.0
+height = 4.0
+
+[sub_resource type="Curve" id="Curve_6j8fi"]
+_data = [Vector2(0.010989, 0.0272727), 0.0, 0.0, 0, 0, Vector2(0.351648, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
 
 [sub_resource type="Animation" id="Animation_6nmm0"]
 length = 0.001
@@ -98,6 +115,20 @@ skeleton = NodePath("")
 
 [node name="Proj_Spawn" type="Node3D" parent="Head/Gun/Rifle_Body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.377, 0.210949, 4.76837e-07)
+
+[node name="Muzzle_Flash" type="CPUParticles3D" parent="Head/Gun/Rifle_Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.3311, 0.27632, 4.43459e-05)
+emitting = false
+amount = 1
+lifetime = 0.1
+explosiveness = 1.0
+local_coords = true
+mesh = SubResource("SphereMesh_4obnj")
+emission_shape = 1
+emission_sphere_radius = 0.5
+gravity = Vector3(0, 0, 0)
+scale_amount_max = 1.5
+scale_amount_curve = SubResource("Curve_6j8fi")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Head/Gun"]
 libraries = {
