@@ -100,10 +100,9 @@ target_position = Vector3(0, 0, -1)
 [node name="Gun" type="Node3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
 script = ExtResource("3_svm6j")
-left_sway_amt = 0.2
-right_sway_amt = 0.2
-up_pos_diff = Vector3(0, 10, 0)
-down_pos_diff = Vector3(0, 10, 0)
+sway_correction_spd = 10
+left_sway = 0.05
+right_sway = 0.05
 
 [node name="Rifle_Body" type="MeshInstance3D" parent="Head/Gun"]
 transform = Transform3D(-1.81e-07, 0, 0.05, 0, 0.05, 0, -0.05, 0, -1.81e-07, 0.23, 0, -0.807832)
