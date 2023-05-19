@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://cgg3c110326qu"]
+[gd_scene load_steps=14 format=3 uid="uid://cgg3c110326qu"]
 
 [ext_resource type="Script" path="res://Scipts/player.gd" id="1_y8cep"]
 [ext_resource type="Environment" uid="uid://cn42io4i8kop5" path="res://Environment.tres" id="2_wg3ro"]
+[ext_resource type="Script" path="res://Scipts/Gun.gd" id="3_svm6j"]
 [ext_resource type="ArrayMesh" uid="uid://ivjhv4d0pm5p" path="res://Meshes/Gun/Rifle_Body.res" id="3_wg3jm"]
 [ext_resource type="ArrayMesh" uid="uid://beqpauwn8eylu" path="res://Meshes/Gun/Rifle_Magazine.res" id="4_vffpi"]
 [ext_resource type="ArrayMesh" uid="uid://cjvxkco3kd2am" path="res://Meshes/Gun/Rifle_Bolt.res" id="5_04wa1"]
@@ -97,6 +98,9 @@ target_position = Vector3(0, 0, -1)
 
 [node name="Gun" type="Node3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+script = ExtResource("3_svm6j")
+left_sway_amt = 0.2
+right_sway_amt = 0.2
 
 [node name="Rifle_Body" type="MeshInstance3D" parent="Head/Gun"]
 transform = Transform3D(-1.81e-07, 0, 0.05, 0, 0.05, 0, -0.05, 0, -1.81e-07, 0.23, 0, -0.807832)
