@@ -5,14 +5,18 @@ var base_gun_pos
 @export var rot_correction_spd = 5
 @export var left_rot_amt = 0.2
 @export var right_rot_amt = 0.2
-@export var sway_threshold = 5
+@export var rot_threshold = 5
 
 @export var up_pos_diff = 10
 @export var down_pos_diff = 10
 
-@export var sway_correction_spd = 5
-@export var left_sway : float
-@export var right_sway : float
+@export var sway_correction_spd = 10
+@export var left_sway = 0.05
+@export var right_sway = 0.05
+
+@export var sway_rot_correction_spd = 5
+@export var left_sway_rot = 0.2
+@export var right_sway_rot = 0.2
 
 @onready var head = get_parent().get_node(".")
 
@@ -32,9 +36,9 @@ func _process(delta):
 	
 	#left right weapon rotation (view based)
 	if mouse_mov != null:
-		if mouse_mov > sway_threshold:
+		if mouse_mov > rot_threshold:
 			rotation = rotation.lerp(Vector3(rotation.x,-left_rot_amt, 0.0), rot_correction_spd * delta)
-		elif mouse_mov < -sway_threshold:
+		elif mouse_mov < -rot_threshold:
 			rotation = rotation.lerp(Vector3(rotation.x,right_rot_amt, 0.0), rot_correction_spd * delta)
 		else:
 			rotation = rotation.lerp(Vector3(rotation.x,0.0, 0.0), rot_correction_spd * delta)
@@ -48,10 +52,13 @@ func _process(delta):
 	#left right weapon sway (movement based)		
 	if movement.x > 0:
 		position = position.lerp(Vector3(base_gun_pos.x - left_sway, position.y, position.z), movement.x * delta * sway_correction_spd)
+		rotation = rotation.lerp(Vector3(rotation.x, rotation.y, -right_sway_rot), sway_rot_correction_spd * delta)
 	elif movement.x < 0:
 		position = position.lerp(Vector3(base_gun_pos.x + right_sway, position.y, position.z), abs(movement.x * delta * sway_correction_spd))
+		rotation = rotation.lerp(Vector3(rotation.x, rotation.y, left_sway_rot), sway_rot_correction_spd * delta)
 	else:
 		position = position.lerp(Vector3(base_gun_pos.x, position.y, position.z), (1 - movement.x) * delta * sway_correction_spd)
+		rotation = rotation.lerp(Vector3(rotation.x, rotation.y, 0.0), sway_rot_correction_spd * delta)
 	
 
 func get_movement():
