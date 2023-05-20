@@ -8,6 +8,9 @@ extends CharacterBody3D
 @export var fire_rate = 0.05
 @export var bullet_speed = 200
 @export var recoil_amount = 0.03
+@export var recoil_kick_amount = 0.5
+@export var recoil_return_thresh = 5
+@export var recoil_return_time = 0.3
 
 @onready var current_scene = get_tree().get_root()
 @onready var head : Node3D = get_node("Head")
@@ -97,7 +100,7 @@ func _input(event):
 			muzzle_flash.emitting = false
 		
 func _process(delta):
-	
+
 	if Input.is_action_pressed("pause"):
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	
