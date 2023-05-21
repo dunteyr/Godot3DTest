@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cgg3c110326qu"]
+[gd_scene load_steps=15 format=3 uid="uid://cgg3c110326qu"]
 
 [ext_resource type="Script" path="res://Scipts/player.gd" id="1_y8cep"]
 [ext_resource type="Environment" uid="uid://cn42io4i8kop5" path="res://Environment.tres" id="2_wg3ro"]
@@ -40,6 +40,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector3(0, 1.5708, 0)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Rifle_Body:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.23, 0, -0.838)]
+}
 
 [sub_resource type="Animation" id="Animation_8eg3r"]
 resource_name = "recoil"
@@ -73,10 +85,41 @@ tracks/2/keys = {
 "values": [Vector3(0, 1.5708, 0), Vector3(0, 1.5708, 0.0174533), Vector3(0, 1.5708, 0.0226893), Vector3(0, 1.5708, 0.0174533), Vector3(0, 1.5708, -0.0174533)]
 }
 
+[sub_resource type="Animation" id="Animation_deegt"]
+resource_name = "sprinting"
+length = 0.5
+loop_mode = 1
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Rifle_Body:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.13, 0.25, 0.38, 0.5),
+"transitions": PackedFloat32Array(2, 0.5, 2, 0.5, 2),
+"update": 0,
+"values": [Vector3(0, 1.5708, 1.309), Vector3(0, 1.5708, 1.37008), Vector3(0, 1.5708, 1.43117), Vector3(0, 1.5708, 1.37008), Vector3(0, 1.5708, 1.309)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Rifle_Body:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.13, 0.25, 0.38, 0.5),
+"transitions": PackedFloat32Array(2, 0.5, 2, 0.5, 2),
+"update": 0,
+"values": [Vector3(0.33, 0.32, -0.277), Vector3(0.316, 0.238, -0.299), Vector3(0.302, 0.32, -0.32), Vector3(0.316, 0.238, -0.299), Vector3(0.33, 0.32, -0.277)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5n1gk"]
 _data = {
 "RESET": SubResource("Animation_6nmm0"),
-"recoil": SubResource("Animation_8eg3r")
+"recoil": SubResource("Animation_8eg3r"),
+"sprinting": SubResource("Animation_deegt")
 }
 
 [node name="Player" type="CharacterBody3D"]
@@ -104,7 +147,7 @@ script = ExtResource("3_svm6j")
 left_sway_rot = 0.6
 
 [node name="Rifle_Body" type="MeshInstance3D" parent="Head/Gun"]
-transform = Transform3D(-1.81e-07, 0, 0.05, 0, 0.05, 0, -0.05, 0, -1.81e-07, 0.23, 0, -0.807832)
+transform = Transform3D(-1.81e-07, 0, 0.05, 0, 0.05, 0, -0.05, 0, -1.81e-07, 0.23, 0, -0.838)
 mesh = ExtResource("3_wg3jm")
 skeleton = NodePath("")
 
@@ -114,7 +157,7 @@ mesh = ExtResource("4_vffpi")
 skeleton = NodePath("")
 
 [node name="Bolt" type="MeshInstance3D" parent="Head/Gun/Rifle_Body"]
-transform = Transform3D(1, 7.45058e-09, -3.55271e-15, -7.45058e-09, 1, -2.77556e-16, 1.06581e-14, -1.66533e-16, 1, -3.9243, 0.059992, 0)
+transform = Transform3D(1, 7.45058e-09, -3.55271e-15, -7.45058e-09, 1, -2.77556e-16, 1.06581e-14, -1.66533e-16, 1, -9.53674e-07, 1.49012e-08, 0)
 mesh = ExtResource("5_04wa1")
 skeleton = NodePath("")
 

@@ -22,8 +22,9 @@ extends CharacterBody3D
 @onready var animation : AnimationPlayer = get_node("Head/Gun/AnimationPlayer")
 @onready var muzzle_flash : CPUParticles3D = get_node("Head/Gun/Rifle_Body/Muzzle_Flash")
 
+var is_sprinting = false
 var target_velocity = Vector3.ZERO
-var shoot_target = Vector3.ZERO;
+var shoot_target = Vector3.ZERO
 var ray_distance = 100
 var is_firing = false
 var fire_timer = fire_rate
@@ -56,9 +57,19 @@ func _physics_process(delta):
 	if(Input.is_action_pressed("sprint")):
 		target_velocity.x = direction.x * (speed + ((1 - sprint_mod) * speed))
 		target_velocity.z = direction.z * (speed + ((1 - sprint_mod) * speed))
+		is_sprinting = true
+		animation.play("sprinting")
 	else:
 		target_velocity.x = direction.x * speed
 		target_velocity.z = direction.z * speed
+		
+		#stop sprinting animation
+		if animation.is_playing():
+			if animation.get_current_animation() == "sprinting":
+				is_sprinting = false
+				animation.play("RESET")
+		
+			
 	
 	#gravity and jump
 	if(self.is_on_floor()):
@@ -96,7 +107,11 @@ func _input(event):
 		elif event.is_action_released("fire"):
 			is_firing = false
 			fire_timer = fire_rate
-			animation.stop()
+			
+			if animation.is_playing():
+				if animation.get_current_animation() == "recoil":
+					animation.stop()
+			
 			muzzle_flash.emitting = false
 		
 func _process(delta):
@@ -107,7 +122,10 @@ func _process(delta):
 	shoot_raycast.set_target_position(Vector3(0.0, 0.0, -1.0) * ray_distance)
 	shoot_target = shoot_raycast.get_collision_point();
 	#update_aim()
-	fire_projectile(delta)
+	
+	if !is_sprinting:
+		fire_projectile(delta)
+		recoil(delta)
 		
 	
 func update_aim():
