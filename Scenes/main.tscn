@@ -124,6 +124,9 @@ transform = Transform3D(0.221429, 0.0229274, 0.974907, -0.975133, 0.0146499, 0.2
 shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_3frmu")]
+fire_rate = 0.05
+recoil_amount = 0.003
+recoil_damping = 0.1
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("2_04u7r")

@@ -179,7 +179,17 @@ func apply_recoil_force():
 	
 	
 func recoil(delta):
+	var max_angle = 10
 	if current_recoil_vel > 0:
-		if head.rotation.x < deg_to_rad(79):
-			head.rotate_x(current_recoil_vel)	
+		if gun.rotation_degrees.x <= max_angle:
+			gun.rotate_x(current_recoil_vel)	
 			current_recoil_vel -= recoil_damping * delta
+		elif gun.rotation_degrees.x >= max_angle:
+			gun.rotation_degrees.x = max_angle
+			
+	if current_recoil_vel <= 0:
+		if gun.rotation_degrees.x > 0:
+			gun.rotate_x(current_recoil_vel)
+			current_recoil_vel -= recoil_damping * delta
+		else:
+			gun.rotation_degrees.x = 0
