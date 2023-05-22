@@ -7,7 +7,8 @@ extends CharacterBody3D
 @export var sensitivity = 0.01
 @export var fire_rate = 0.05
 @export var bullet_speed = 200
-@export var recoil_amount = 0.03
+@export var recoil_amount = 0.5
+@export var recoil_damping = 0.8
 
 @onready var current_scene = get_tree().get_root()
 @onready var head : Node3D = get_node("Head")
@@ -25,6 +26,9 @@ var shoot_target = Vector3.ZERO
 var ray_distance = 100
 var is_firing = false
 var fire_timer = fire_rate
+var current_shots_fired = 0
+var current_recoil_vel = 0
+
 
 #Happens once at beginning
 func _ready():
@@ -130,18 +134,28 @@ func update_aim():
 		
 
 func fire_projectile(delta):
+	#manages recoil
+	recoil(delta)
 	
 	if is_firing:
-		#count down every frame
-		fire_timer -= delta
+		
+		#on the first shot set timer to 0, so first shot happens on click
+		if current_shots_fired == 0:
+			fire_timer = 0
+		else:
+			#count down every frame
+			fire_timer -= delta
+		
 		#recoil
-		if head.rotation.x < deg_to_rad(79):
+		#if head.rotation.x < deg_to_rad(79):
 			#head.rotate_x(recoil_amount)
-			head.rotation = head.rotation.lerp(Vector3(head.rotation.x + recoil_amount, 0.0, 0.0), delta)
+			#head.rotation = head.rotation.lerp(Vector3(head.rotation.x + recoil_amount, 0.0, 0.0), delta)
 		#fire once the timer hits zero
 		if fire_timer <= 0:
-			animation.play("recoil")
-			muzzle_flash.lifetime = fire_rate
+			apply_recoil_force()
+			#animation.play("recoil")
+			muzzle_flash.lifetime = 0.1
+			muzzle_flash.one_shot = true
 			muzzle_flash.emitting = true
 			#create bullet and set rotation/position
 			var bullet : RigidBody3D = projectile.instantiate()
@@ -155,3 +169,17 @@ func fire_projectile(delta):
 			bullet.find_child("Smoke_Trail").emitting = true
 			#reset timer for next bullet
 			fire_timer = fire_rate
+			current_shots_fired += 1
+	else:
+		current_shots_fired = 0
+
+
+func apply_recoil_force():
+	current_recoil_vel = recoil_amount
+	
+	
+func recoil(delta):
+	if current_recoil_vel > 0:
+		if head.rotation.x < deg_to_rad(79):
+			head.rotate_x(current_recoil_vel)	
+			current_recoil_vel -= recoil_damping * delta
