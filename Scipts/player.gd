@@ -9,6 +9,7 @@ extends CharacterBody3D
 @export var bullet_speed = 200
 @export var recoil_amount = 0.5
 @export var recoil_damping = 0.8
+@export var position_recoil_amount = 5
 
 @onready var current_scene = get_tree().get_root()
 @onready var head : Node3D = get_node("Head")
@@ -28,11 +29,13 @@ var is_firing = false
 var fire_timer = fire_rate
 var current_shots_fired = 0
 var current_recoil_vel = 0
+var pre_recoil_gun_pos
 
 
 #Happens once at beginning
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	pre_recoil_gun_pos = gun.position
 	
 #happens 60 times a frame
 func _physics_process(delta):
@@ -155,7 +158,7 @@ func fire_projectile(delta):
 			apply_recoil_force()
 			#animation.play("recoil")
 			muzzle_flash.lifetime = 0.1
-			muzzle_flash.one_shot = true
+			muzzle_flash.one_shot = false
 			muzzle_flash.emitting = true
 			#create bullet and set rotation/position
 			var bullet : RigidBody3D = projectile.instantiate()
@@ -180,16 +183,37 @@ func apply_recoil_force():
 	
 func recoil(delta):
 	var max_angle = 10
+	var max_pos_diff = 0.1
+	var max_pos = pre_recoil_gun_pos.z + max_pos_diff
+	var pos_mod = position_recoil_amount
+	
+	#recoil
 	if current_recoil_vel > 0:
+		#rotation recoil
 		if gun.rotation_degrees.x <= max_angle:
 			gun.rotate_x(current_recoil_vel)	
 			current_recoil_vel -= recoil_damping * delta
 		elif gun.rotation_degrees.x >= max_angle:
 			gun.rotation_degrees.x = max_angle
+		
+		#position recoil
+		if gun.position.z <= max_pos:
+			gun.position.z += (current_recoil_vel * pos_mod)
+		else:
+			gun.position.z = max_pos
 			
-	if current_recoil_vel <= 0:
+	#recoil correction	
+	elif current_recoil_vel < 0:
+		
+		#rotation correction
 		if gun.rotation_degrees.x > 0:
 			gun.rotate_x(current_recoil_vel)
 			current_recoil_vel -= recoil_damping * delta
 		else:
 			gun.rotation_degrees.x = 0
+		
+		#position correction
+		if gun.position.z > pre_recoil_gun_pos.z:
+			gun.position.z += (current_recoil_vel * pos_mod)
+		else:
+			gun.position.z = pre_recoil_gun_pos.z
