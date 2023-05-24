@@ -10,6 +10,7 @@ extends CharacterBody3D
 @export var recoil_amount = 0.5
 @export var recoil_damping = 0.8
 @export var position_recoil_amount = 5
+@export var recoil_return_modifier = 0.1
 
 @onready var current_scene = get_tree().get_root()
 @onready var head : Node3D = get_node("Head")
@@ -141,7 +142,7 @@ func fire_projectile(delta):
 	recoil(delta)
 	
 	if is_firing:
-		
+		muzzle_flash.emitting = false
 		#on the first shot set timer to 0, so first shot happens on click
 		if current_shots_fired == 0:
 			fire_timer = 0
@@ -158,7 +159,7 @@ func fire_projectile(delta):
 			apply_recoil_force()
 			#animation.play("recoil")
 			muzzle_flash.lifetime = 0.1
-			muzzle_flash.one_shot = false
+			muzzle_flash.one_shot = true
 			muzzle_flash.emitting = true
 			#create bullet and set rotation/position
 			var bullet : RigidBody3D = projectile.instantiate()
@@ -186,6 +187,7 @@ func recoil(delta):
 	var max_pos_diff = 0.1
 	var max_pos = pre_recoil_gun_pos.z + max_pos_diff
 	var pos_mod = position_recoil_amount
+	var return_mod = recoil_return_modifier
 	
 	#recoil
 	if current_recoil_vel > 0:
@@ -203,11 +205,12 @@ func recoil(delta):
 			gun.position.z = max_pos
 			
 	#recoil correction	
-	elif current_recoil_vel < 0:
+	elif current_recoil_vel <= 0:
 		
 		#rotation correction
 		if gun.rotation_degrees.x > 0:
-			gun.rotate_x(current_recoil_vel)
+			#return_mod makes the return recoil slower
+			gun.rotate_x(current_recoil_vel * return_mod)
 			current_recoil_vel -= recoil_damping * delta
 		else:
 			gun.rotation_degrees.x = 0
