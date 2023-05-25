@@ -11,6 +11,7 @@ extends CharacterBody3D
 @export var recoil_damping = 0.8
 @export var position_recoil_amount = 5
 @export var recoil_return_modifier = 0.1
+@export var recoil_fire_rate_scaling = false
 
 @onready var current_scene = get_tree().get_root()
 @onready var head : Node3D = get_node("Head")
@@ -156,9 +157,10 @@ func fire_projectile(delta):
 			#head.rotation = head.rotation.lerp(Vector3(head.rotation.x + recoil_amount, 0.0, 0.0), delta)
 		#fire once the timer hits zero
 		if fire_timer <= 0:
-			apply_recoil_force()
+			apply_recoil_force(recoil_fire_rate_scaling)
 			#animation.play("recoil")
-			muzzle_flash.lifetime = 0.1
+			#lifetime has to be less than fire_rate
+			muzzle_flash.lifetime = 0.04
 			muzzle_flash.one_shot = true
 			muzzle_flash.emitting = true
 			#create bullet and set rotation/position
@@ -174,12 +176,24 @@ func fire_projectile(delta):
 			#reset timer for next bullet
 			fire_timer = fire_rate
 			current_shots_fired += 1
+			
+		else:
+			muzzle_flash.emitting = false
 	else:
 		current_shots_fired = 0
 
 
-func apply_recoil_force():
-	current_recoil_vel = recoil_amount
+func apply_recoil_force(scale_with_fire_rate = false):
+	
+	if !scale_with_fire_rate:
+		current_recoil_vel = recoil_amount
+	else:
+		if fire_rate >= 0.175:
+			current_recoil_vel = recoil_amount + (fire_rate / 50)
+		else:
+			current_recoil_vel = recoil_amount + (fire_rate / 100)
+		
+	
 	
 	
 func recoil(delta):
