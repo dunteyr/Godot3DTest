@@ -5,8 +5,9 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4qmlj"]
 render_priority = 0
 shader = ExtResource("1_ra326")
-shader_parameter/hole_size = 0.171
-shader_parameter/hole_rim_size = 0.177
+shader_parameter/hole_size = 0.149
+shader_parameter/hole_rim_size = 0.06
+shader_parameter/rim_gradient = true
 shader_parameter/hole_color = Color(0.0941176, 0.0941176, 0.0941176, 1)
 shader_parameter/rim_color = Color(0.333333, 0.333333, 0.333333, 1)
 
