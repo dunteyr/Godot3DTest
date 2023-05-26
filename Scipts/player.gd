@@ -7,6 +7,7 @@ extends CharacterBody3D
 @export var sensitivity = 0.01
 @export var fire_rate = 0.05
 @export var bullet_speed = 200
+@export var camera_recoil_amount = 1.3
 @export var recoil_amount = 0.5
 @export var recoil_damping = 0.8
 @export var position_recoil_amount = 5
@@ -160,7 +161,7 @@ func fire_projectile(delta):
 			apply_recoil_force(recoil_fire_rate_scaling)
 			#animation.play("recoil")
 			#lifetime has to be less than fire_rate
-			muzzle_flash.lifetime = 0.04
+			muzzle_flash.lifetime = 0.03
 			muzzle_flash.one_shot = true
 			muzzle_flash.emitting = true
 			#create bullet and set rotation/position
@@ -211,6 +212,13 @@ func recoil(delta):
 			current_recoil_vel -= recoil_damping * delta
 		elif gun.rotation_degrees.x >= max_angle:
 			gun.rotation_degrees.x = max_angle
+			
+		#camera recoil
+		if head.rotation_degrees.x <= 80:
+			if gun.rotation_degrees.x > (max_angle / 4):
+				head.rotation = head.rotation.lerp(Vector3(head.rotation.x + (gun.rotation.x * camera_recoil_amount), 0.0, 0.0), delta)
+			
+		
 		
 		#position recoil
 		if gun.position.z <= max_pos:

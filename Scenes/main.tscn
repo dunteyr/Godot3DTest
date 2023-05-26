@@ -125,6 +125,7 @@ shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_3frmu")]
 fire_rate = 0.05
+camera_recoil_amount = 2.0
 recoil_amount = 0.003
 recoil_damping = 0.1
 position_recoil_amount = 8
