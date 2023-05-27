@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://c7o7ahb42syps"]
+[gd_scene load_steps=41 format=3 uid="uid://c7o7ahb42syps"]
 
 [ext_resource type="PackedScene" uid="uid://cgg3c110326qu" path="res://Prefabs/player.tscn" id="1_3frmu"]
 [ext_resource type="Environment" uid="uid://cn42io4i8kop5" path="res://Environment.tres" id="2_04u7r"]
@@ -109,9 +109,22 @@ size = Vector2(60, 60)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vbm6b"]
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_jabkv"]
+fractal_gain = 1.437
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_8ppke"]
+seamless = true
+seamless_blend_skirt = 0.272
+noise = SubResource("FastNoiseLite_jabkv")
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xh13l"]
 render_priority = 0
 shader = ExtResource("15_ri31b")
+shader_parameter/main_color = Color(0.658824, 0.658824, 0.658824, 1)
+shader_parameter/secondary_color = Color(0.811765, 0.811765, 0.811765, 1)
+shader_parameter/tile_size = 19.89
+shader_parameter/noise_height_scale = 0.266
+shader_parameter/noise = SubResource("NoiseTexture2D_8ppke")
 
 [sub_resource type="BoxMesh" id="BoxMesh_ngvk6"]
 material = SubResource("ShaderMaterial_xh13l")
