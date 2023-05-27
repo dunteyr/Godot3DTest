@@ -7,8 +7,8 @@ extends CharacterBody3D
 @export var sensitivity = 0.01
 @export var fire_rate = 0.05
 @export var bullet_speed = 200
-@export var camera_recoil_amount = 1.3
-@export var recoil_amount = 0.5
+@export var camera_recoil_amount = 0.2
+@export var recoil_amount = 0.003
 @export var recoil_damping = 0.8
 @export var position_recoil_amount = 5
 @export var recoil_return_modifier = 0.1
@@ -31,7 +31,7 @@ var ray_distance = 100
 var is_firing = false
 var fire_timer = fire_rate
 var current_shots_fired = 0
-var current_recoil_vel = 0
+var current_recoil_vel = 0.0
 var pre_recoil_gun_pos
 
 
@@ -198,11 +198,20 @@ func apply_recoil_force(scale_with_fire_rate = false):
 	
 	
 func recoil(delta):
-	var max_angle = 10
+	var max_angle = 5.0
 	var max_pos_diff = 0.1
 	var max_pos = pre_recoil_gun_pos.z + max_pos_diff
 	var pos_mod = position_recoil_amount
 	var return_mod = recoil_return_modifier
+	var camera_recoil_threshold = max_angle - (max_angle / 20)
+	
+	#camera recoil
+	#recoil still happens a little after recoil velocity hits zero to avoid jittering
+	if current_recoil_vel != 0.0:
+		if head.rotation_degrees.x <= 80:
+			if gun.rotation_degrees.x > camera_recoil_threshold:
+				var target = Vector3(head.rotation.x + camera_recoil_amount, 0.0, 0.0)
+				head.rotation = head.rotation.lerp(target, delta)
 	
 	#recoil
 	if current_recoil_vel > 0:
@@ -213,13 +222,6 @@ func recoil(delta):
 		elif gun.rotation_degrees.x >= max_angle:
 			gun.rotation_degrees.x = max_angle
 			
-		#camera recoil
-		if head.rotation_degrees.x <= 80:
-			if gun.rotation_degrees.x > (max_angle / 4):
-				head.rotation = head.rotation.lerp(Vector3(head.rotation.x + (gun.rotation.x * camera_recoil_amount), 0.0, 0.0), delta)
-			
-		
-		
 		#position recoil
 		if gun.position.z <= max_pos:
 			gun.position.z += (current_recoil_vel * pos_mod)
