@@ -126,7 +126,6 @@ _data = {
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 collision_layer = 2
 script = ExtResource("1_y8cep")
-sensitivity = 0.005
 fire_rate = 0.25
 recoil_amount = 0.02
 recoil_damping = 0.2
