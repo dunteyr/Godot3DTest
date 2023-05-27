@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://c7o7ahb42syps"]
+[gd_scene load_steps=39 format=3 uid="uid://c7o7ahb42syps"]
 
 [ext_resource type="PackedScene" uid="uid://cgg3c110326qu" path="res://Prefabs/player.tscn" id="1_3frmu"]
 [ext_resource type="Environment" uid="uid://cn42io4i8kop5" path="res://Environment.tres" id="2_04u7r"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://ds4ct1h51y6ey" path="res://Textures/Stone_Noise/Stone_Voro_Mod_Noise.res" id="12_vjytg"]
 [ext_resource type="Shader" path="res://Shaders/grass.gdshader" id="13_ws5vs"]
 [ext_resource type="Texture2D" uid="uid://ceofix6s8hipc" path="res://Textures/Grass_Noise/Grass_Noise.res" id="14_qwnk4"]
+[ext_resource type="Shader" path="res://Shaders/Basic_Wall.gdshader" id="15_ri31b"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fyal0"]
 
@@ -108,6 +109,17 @@ size = Vector2(60, 60)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vbm6b"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xh13l"]
+render_priority = 0
+shader = ExtResource("15_ri31b")
+
+[sub_resource type="BoxMesh" id="BoxMesh_ngvk6"]
+material = SubResource("ShaderMaterial_xh13l")
+size = Vector3(2, 9.917, 30)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7w4bg"]
+size = Vector3(2, 9.917, 30)
+
 [node name="Main" type="Node"]
 
 [node name="Ground" type="StaticBody3D" parent="."]
@@ -167,3 +179,12 @@ mesh = SubResource("PlaneMesh_n54x1")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Grass_Ground"]
 transform = Transform3D(60, 0, 0, 0, 2, 0, 0, 0, 60, 0, -1, 0)
 shape = SubResource("BoxShape3D_vbm6b")
+
+[node name="Wall" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -87.242, 5.383, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall"]
+mesh = SubResource("BoxMesh_ngvk6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall"]
+shape = SubResource("BoxShape3D_7w4bg")
