@@ -4,15 +4,15 @@ extends CharacterBody3D
 @export var sprint_mod = 0.3
 @export var jump_force = 20
 @export var fall_acceleration = 75
-@export var sensitivity = 0.01
+@export var sensitivity = 0.005
 @export var fire_rate = 0.05
 @export var bullet_speed = 200
 @export var camera_recoil_amount = 0.2
 @export var recoil_amount = 0.003
-@export var recoil_damping = 0.8
-@export var position_recoil_amount = 5
+@export var recoil_damping = 0.1
+@export var position_recoil_amount = 8
 @export var recoil_return_modifier = 0.1
-@export var recoil_fire_rate_scaling = false
+@export var recoil_fire_rate_scaling = true
 
 @onready var current_scene = get_tree().get_root()
 @onready var head : Node3D = get_node("Head")
@@ -39,6 +39,7 @@ var pre_recoil_gun_pos
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	pre_recoil_gun_pos = gun.position
+	
 	
 #happens 60 times a frame
 func _physics_process(delta):
@@ -92,7 +93,6 @@ func _physics_process(delta):
 	self.move_and_slide()
 	
 	
-
 func _input(event):
 	
 	#camera movement and body rotation
@@ -100,8 +100,6 @@ func _input(event):
 		rotate_y(event.relative.x * sensitivity * -1)
 		head.rotate_x(event.relative.y * sensitivity * -1)
 		head.rotation.x = clampf(head.rotation.x, deg_to_rad(-80), deg_to_rad(80))
-		#gun.rotate_x(event.relative.y * sensitivity * -1)
-		#gun.rotation.x = clampf(gun.rotation.x, deg_to_rad(-80), deg_to_rad(80))
 	
 	if event is InputEvent:
 		
@@ -120,6 +118,7 @@ func _input(event):
 					animation.stop()
 			
 			muzzle_flash.emitting = false
+		
 		
 func _process(delta):
 
@@ -152,10 +151,6 @@ func fire_projectile(delta):
 			#count down every frame
 			fire_timer -= delta
 		
-		#recoil
-		#if head.rotation.x < deg_to_rad(79):
-			#head.rotate_x(recoil_amount)
-			#head.rotation = head.rotation.lerp(Vector3(head.rotation.x + recoil_amount, 0.0, 0.0), delta)
 		#fire once the timer hits zero
 		if fire_timer <= 0:
 			apply_recoil_force(recoil_fire_rate_scaling)
@@ -194,9 +189,7 @@ func apply_recoil_force(scale_with_fire_rate = false):
 		else:
 			current_recoil_vel = recoil_amount + (fire_rate / 100)
 		
-	
-	
-	
+		
 func recoil(delta):
 	var max_angle = 5.0
 	var max_pos_diff = 0.1
@@ -206,7 +199,7 @@ func recoil(delta):
 	var camera_recoil_threshold = max_angle - (max_angle / 20)
 	
 	#camera recoil
-	#recoil still happens a little after recoil velocity hits zero to avoid jittering
+	#this conditional fixes jitter
 	if current_recoil_vel != 0.0:
 		if head.rotation_degrees.x <= 80:
 			if gun.rotation_degrees.x > camera_recoil_threshold:
