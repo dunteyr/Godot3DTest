@@ -55,7 +55,6 @@ func get_impact_normal():
 
 func place_bullet_hole():
 	var impact_normal = get_impact_normal()	
-	print(impact_normal)
 	
 	var bullet_hole = bullet_hole_decal.instantiate()
 	current_scene.add_child(bullet_hole)

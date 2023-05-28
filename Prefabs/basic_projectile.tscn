@@ -35,6 +35,7 @@ mesh = SubResource("CapsuleMesh_g1dm3")
 
 [node name="Smoke_Trail" type="CPUParticles3D" parent="Bullet"]
 transform = Transform3D(1, 0, 3.38813e-21, 0, 1, 0, 3.38813e-21, 0, 1, -1.39007e-07, -1.45987, 3.75971e-08)
+visible = false
 amount = 100
 lifetime = 0.8
 lifetime_randomness = 1.0
