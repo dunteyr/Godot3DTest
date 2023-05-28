@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://cxe28iygihqqp"]
+
+[ext_resource type="Shader" path="res://Shaders/bullet_hole.gdshader" id="1_x00w3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_37d5d"]
+render_priority = 0
+shader = ExtResource("1_x00w3")
+shader_parameter/hole_size = 0.335
+shader_parameter/hole_rim_size = 0.138
+shader_parameter/rim_gradient = true
+shader_parameter/hole_color = null
+shader_parameter/rim_color = Color(0.494118, 0.494118, 0.494118, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_kqs7j"]
+material = SubResource("ShaderMaterial_37d5d")
+
+[node name="Bullet_Hole" type="Node3D"]
+
+[node name="Plane_Mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, -4.37114e-09, -0.1, 0, 0.1, -4.37114e-09, 0, 0, 0)
+mesh = SubResource("PlaneMesh_kqs7j")

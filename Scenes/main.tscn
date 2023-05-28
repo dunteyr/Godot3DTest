@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://c7o7ahb42syps"]
+[gd_scene load_steps=44 format=3 uid="uid://c7o7ahb42syps"]
 
 [ext_resource type="PackedScene" uid="uid://cgg3c110326qu" path="res://Prefabs/player.tscn" id="1_3frmu"]
 [ext_resource type="Environment" uid="uid://cn42io4i8kop5" path="res://Environment.tres" id="2_04u7r"]
@@ -15,6 +15,7 @@
 [ext_resource type="Shader" path="res://Shaders/grass.gdshader" id="13_ws5vs"]
 [ext_resource type="Texture2D" uid="uid://ceofix6s8hipc" path="res://Textures/Grass_Noise/Grass_Noise.res" id="14_qwnk4"]
 [ext_resource type="Shader" path="res://Shaders/Basic_Wall.gdshader" id="15_ri31b"]
+[ext_resource type="PackedScene" uid="uid://cxe28iygihqqp" path="res://Prefabs/bullet_hole.tscn" id="16_csc46"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fyal0"]
 
@@ -159,7 +160,7 @@ transform = Transform3D(0.221429, 0.0229274, 0.974907, -0.975133, 0.0146499, 0.2
 shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_3frmu")]
-fire_rate = 0.1
+fire_rate = 0.075
 recoil_amount = 0.003
 recoil_damping = 0.1
 
@@ -211,3 +212,6 @@ mesh = SubResource("BoxMesh_ngvk6")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Wall"]
 shape = SubResource("BoxShape3D_7w4bg")
+
+[node name="Bullet_Hole" parent="." instance=ExtResource("16_csc46")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -86.2414, 1.05184, 14.5694)

@@ -22,5 +22,5 @@ void fragment() {
 		rim_grad = 1.0;
 	}
 	ALBEDO = total * rim_grad;
-	ALPHA = (1.0 - hole_rim);
+	ALPHA = step( 0.5, (1.0 - hole_rim));
 }
