@@ -1,6 +1,7 @@
 [gd_scene load_steps=44 format=3 uid="uid://c7o7ahb42syps"]
 
 [ext_resource type="PackedScene" uid="uid://cgg3c110326qu" path="res://Prefabs/player.tscn" id="1_3frmu"]
+[ext_resource type="Script" path="res://Scipts/Scene_Manager.gd" id="1_e4bih"]
 [ext_resource type="Environment" uid="uid://cn42io4i8kop5" path="res://Environment.tres" id="2_04u7r"]
 [ext_resource type="Shader" path="res://Shaders/PlaneVertex.gdshader" id="2_xw0l4"]
 [ext_resource type="PackedScene" uid="uid://dcjne84v6gfcv" path="res://Prefabs/flat_rock.tscn" id="4_yyj2t"]
@@ -15,7 +16,6 @@
 [ext_resource type="Shader" path="res://Shaders/grass.gdshader" id="13_ws5vs"]
 [ext_resource type="Texture2D" uid="uid://ceofix6s8hipc" path="res://Textures/Grass_Noise/Grass_Noise.res" id="14_qwnk4"]
 [ext_resource type="Shader" path="res://Shaders/Basic_Wall.gdshader" id="15_ri31b"]
-[ext_resource type="PackedScene" uid="uid://cxe28iygihqqp" path="res://Prefabs/bullet_hole.tscn" id="16_csc46"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fyal0"]
 
@@ -145,6 +145,7 @@ size = Vector3(2, 9.917, 30)
 size = Vector3(2, 9.917, 30)
 
 [node name="Main" type="Node"]
+script = ExtResource("1_e4bih")
 
 [node name="Ground" type="StaticBody3D" parent="."]
 transform = Transform3D(60, 0, 0, 0, 2, 0, 0, 0, 60, 0, -1, 0)
@@ -212,6 +213,3 @@ mesh = SubResource("BoxMesh_ngvk6")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Wall"]
 shape = SubResource("BoxShape3D_7w4bg")
-
-[node name="Bullet_Hole" parent="." instance=ExtResource("16_csc46")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -86.2414, 1.05184, 14.5694)

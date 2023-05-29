@@ -14,7 +14,7 @@ shader_parameter/rim_color = Color(0.494118, 0.494118, 0.494118, 1)
 [sub_resource type="PlaneMesh" id="PlaneMesh_kqs7j"]
 material = SubResource("ShaderMaterial_37d5d")
 
-[node name="Bullet_Hole" type="Node3D"]
+[node name="Bullet_Hole" type="Node3D" groups=["bullet_holes"]]
 
 [node name="Plane_Mesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.1, 0, 0, 0, -4.37114e-09, -0.1, 0, 0.1, -4.37114e-09, 0, 0, 0)

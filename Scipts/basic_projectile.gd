@@ -57,7 +57,7 @@ func place_bullet_hole():
 	var impact_normal = get_impact_normal()	
 	
 	var bullet_hole = bullet_hole_decal.instantiate()
-	current_scene.add_child(bullet_hole)
+	current_scene.add_child(bullet_hole)	
 	bullet_hole.set_global_position(get_global_position())
 	
 	#for some reason Node3D look_at() function fails if it needs to look straight up or straight down
