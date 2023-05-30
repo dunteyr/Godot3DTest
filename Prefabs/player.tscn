@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cgg3c110326qu"]
+[gd_scene load_steps=19 format=3 uid="uid://cgg3c110326qu"]
 
 [ext_resource type="Script" path="res://Scipts/player.gd" id="1_y8cep"]
 [ext_resource type="Environment" uid="uid://cn42io4i8kop5" path="res://Environment.tres" id="2_wg3ro"]
@@ -54,6 +54,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(0.23, 0, -0.838)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Rifle_Body/Magazine:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-4.059, -5.874, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_8eg3r"]
@@ -118,10 +130,52 @@ tracks/1/keys = {
 "values": [Vector3(0.33, 0.32, -0.277), Vector3(0.316, 0.238, -0.299), Vector3(0.302, 0.32, -0.32), Vector3(0.316, 0.238, -0.299), Vector3(0.33, 0.32, -0.277)]
 }
 
+[sub_resource type="Animation" id="Animation_js4dw"]
+resource_name = "reload"
+length = 3.3
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Rifle_Body:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.15, 0.2, 0.33, 0.5, 0.6, 0.7, 1, 1.91, 1.99, 2, 2.15, 2.19, 2.24, 3.3),
+"transitions": PackedFloat32Array(2.5, 0.5, 2.5, 2.5, 0.5, 2, 0.8, 2, 0.85, 0.5, 2, 2, 0.5, 0.517632, 0.615572, 0.659754),
+"update": 0,
+"values": [Vector3(0.23, 0, -0.838), Vector3(0.23, 0.05, -0.838), Vector3(0.23, 0.06, -0.838), Vector3(0.23, 0.05, -0.838), Vector3(0.23, -0.111, -0.838), Vector3(0.23, -0.071, -0.838), Vector3(0.23, -0.094391, -0.838), Vector3(0.23, -0.11, -0.838), Vector3(0.23, -0.12, -0.838), Vector3(0.23, -0.058757, -0.838), Vector3(0.285, 0.027, -0.838), Vector3(0.285, 0.027, -0.838), Vector3(0.23, -0.058757, -0.838), Vector3(0.214, -0.094, -0.838), Vector3(0.208, -0.102, -0.838), Vector3(0.23, 0, -0.838)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Rifle_Body:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.15, 0.2, 0.33, 0.5, 0.6, 0.7, 1, 1.62, 1.91, 2.18, 3.3),
+"transitions": PackedFloat32Array(2.5, 0.5, 2.5, 2.5, 0.5, 2, 0.8, 2, 0.5, 2, 0.5, 0.574349, 1),
+"update": 0,
+"values": [Vector3(0, 1.5708, 0), Vector3(0, 1.5708, 0.0698132), Vector3(0, 1.5708, 0.0872665), Vector3(0, 1.5708, 0.0698132), Vector3(0, 1.5708, -0.0872665), Vector3(0, 1.5708, -0.0349066), Vector3(0, 1.5708, -0.0655253), Vector3(0, 1.5708, -0.0872665), Vector3(0, 1.5708, -0.0907571), Vector3(0.3735, 1.5708, -0.0401426), Vector3(0.436332, 1.5708, -0.0401426), Vector3(0.200901, 1.5708, -0.0184829), Vector3(0, 1.5708, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Rifle_Body/Magazine:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.26, 0.43, 1.76, 1.91),
+"transitions": PackedFloat32Array(1, 1, 2.5, 1),
+"update": 0,
+"values": [Vector3(-4.059, -5.874, 0), Vector3(-4.059, -13, 0), Vector3(-4.059, -13, 0), Vector3(-4.059, -5.874, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5n1gk"]
 _data = {
 "RESET": SubResource("Animation_6nmm0"),
 "recoil": SubResource("Animation_8eg3r"),
+"reload": SubResource("Animation_js4dw"),
 "sprinting": SubResource("Animation_deegt")
 }
 
@@ -183,6 +237,7 @@ scale_amount_max = 1.5
 scale_amount_curve = SubResource("Curve_6j8fi")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Head/Gun"]
+speed_scale = 1.3
 libraries = {
 "": SubResource("AnimationLibrary_5n1gk")
 }

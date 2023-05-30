@@ -122,6 +122,9 @@ func _input(event):
 			
 			muzzle_flash.emitting = false
 		
+		#reload input listening
+		if event.is_action_pressed("reload"):
+			reload()
 		
 func _process(delta):
 	
@@ -142,44 +145,47 @@ func fire_projectile(delta):
 	#manages recoil
 	recoil(delta)
 	
-	if is_firing:
-		muzzle_flash.emitting = false
-		#on the first shot set timer to 0, so first shot happens on click
-		if current_shots_fired == 0:
-			fire_timer = 0
-		else:
-			#count down every frame
-			fire_timer -= delta
-		
-		#fire once the timer hits zero
-		if fire_timer <= 0:
-			apply_recoil_force(recoil_fire_rate_scaling)
-			#animation.play("recoil")
-			#lifetime has to be less than fire_rate
-			muzzle_flash.lifetime = 0.03
-			muzzle_flash.one_shot = true
-			muzzle_flash.emitting = true
-			#create bullet and set rotation/position
-			var bullet : RigidBody3D = projectile.instantiate()
-			current_scene.add_child(bullet)
-			bullet.set_global_position(proj_spawn.get_global_position())
-			bullet.set_global_rotation(gun.get_global_rotation())
-			
-			#send it
-			bullet.apply_impulse(-bullet.basis.z * bullet_speed)
-			#turn on smoke trail
-			bullet.find_child("Smoke_Trail").emitting = true
-			#reset timer for next bullet
-			fire_timer = fire_rate
-			current_shots_fired += 1
-			shots_remaining -= 1
-			bullet_fired.emit(shots_remaining)
-			
-		else:
+	if shots_remaining > 0:
+		if is_firing:
 			muzzle_flash.emitting = false
+			#on the first shot set timer to 0, so first shot happens on click
+			if current_shots_fired == 0:
+				fire_timer = 0
+			else:
+				#count down every frame
+				fire_timer -= delta
+			
+			#fire once the timer hits zero
+			if fire_timer <= 0:
+				apply_recoil_force(recoil_fire_rate_scaling)
+				#animation.play("recoil")
+				#lifetime has to be less than fire_rate
+				muzzle_flash.lifetime = 0.03
+				muzzle_flash.one_shot = true
+				muzzle_flash.emitting = true
+				#create bullet and set rotation/position
+				var bullet : RigidBody3D = projectile.instantiate()
+				current_scene.add_child(bullet)
+				bullet.set_global_position(proj_spawn.get_global_position())
+				bullet.set_global_rotation(gun.get_global_rotation())
+				
+				#send it
+				bullet.apply_impulse(-bullet.basis.z * bullet_speed)
+				#turn on smoke trail
+				bullet.find_child("Smoke_Trail").emitting = true
+				#reset timer for next bullet
+				fire_timer = fire_rate
+				current_shots_fired += 1
+				shots_remaining -= 1
+				bullet_fired.emit(shots_remaining)
+				
+			else:
+				muzzle_flash.emitting = false
+		else:
+			current_shots_fired = 0
 	else:
-		current_shots_fired = 0
-
+		reload()
+	
 
 func apply_recoil_force(scale_with_fire_rate = false):
 	
@@ -239,3 +245,7 @@ func recoil(delta):
 			gun.position.z += (current_recoil_vel * pos_mod)
 		else:
 			gun.position.z = pre_recoil_gun_pos.z
+
+
+func reload():
+	print("reloaded")
