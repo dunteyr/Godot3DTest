@@ -7,6 +7,7 @@ extends CharacterBody3D
 @export var sensitivity = 0.005
 @export var fire_rate = 0.05
 @export var bullet_speed = 200
+@export var magazine_size = 30
 @export var camera_recoil_amount = 0.2
 @export var recoil_amount = 0.003
 @export var recoil_damping = 0.1
@@ -14,6 +15,7 @@ extends CharacterBody3D
 @export var recoil_return_modifier = 0.1
 @export var recoil_fire_rate_scaling = true
 
+@onready var player_ui = get_node("Player_UI")
 @onready var current_scene = get_tree().get_root()
 @onready var head : Node3D = get_node("Head")
 @onready var camera : Camera3D = get_node("Head/Camera3D")
@@ -30,10 +32,12 @@ var shoot_target = Vector3.ZERO
 var ray_distance = 100
 var is_firing = false
 var fire_timer = fire_rate
+var shots_remaining = magazine_size
 var current_shots_fired = 0
 var current_recoil_vel = 0.0
 var pre_recoil_gun_pos
 
+signal bullet_fired(shots_remaining)
 
 #Happens once at beginning
 func _ready():
@@ -168,6 +172,8 @@ func fire_projectile(delta):
 			#reset timer for next bullet
 			fire_timer = fire_rate
 			current_shots_fired += 1
+			shots_remaining -= 1
+			bullet_fired.emit(shots_remaining)
 			
 		else:
 			muzzle_flash.emitting = false
