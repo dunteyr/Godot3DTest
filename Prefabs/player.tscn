@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cgg3c110326qu"]
+[gd_scene load_steps=18 format=3 uid="uid://cgg3c110326qu"]
 
 [ext_resource type="Script" path="res://Scipts/player.gd" id="1_y8cep"]
 [ext_resource type="Environment" uid="uid://cn42io4i8kop5" path="res://Environment.tres" id="2_wg3ro"]
@@ -7,6 +7,7 @@
 [ext_resource type="ArrayMesh" uid="uid://beqpauwn8eylu" path="res://Meshes/Gun/Rifle_Magazine.res" id="4_vffpi"]
 [ext_resource type="ArrayMesh" uid="uid://cjvxkco3kd2am" path="res://Meshes/Gun/Rifle_Bolt.res" id="5_04wa1"]
 [ext_resource type="PackedScene" uid="uid://bv8es6symo2av" path="res://Prefabs/UI/pause_screen.tscn" id="7_4kqaf"]
+[ext_resource type="Script" path="res://Scipts/UI/player_ui.gd" id="8_fbjag"]
 [ext_resource type="PackedScene" uid="uid://ct5x2jnyr78q6" path="res://Prefabs/UI/player_ui.tscn" id="8_vr1ew"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_um0hy"]
@@ -187,6 +188,7 @@ libraries = {
 }
 
 [node name="Player_UI" parent="." instance=ExtResource("8_vr1ew")]
+script = ExtResource("8_fbjag")
 
 [node name="Pause Screen" parent="." instance=ExtResource("7_4kqaf")]
 z_index = 1000

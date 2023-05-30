@@ -22,7 +22,7 @@ offset_top = -45.0
 grow_horizontal = 0
 grow_vertical = 0
 
-[node name="Clip_Remaining_Label" type="Label" parent="Ammo_Container"]
+[node name="Mag_Remaining_Label" type="Label" parent="Ammo_Container"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -37,7 +37,7 @@ self_modulate = Color(0.235294, 0.235294, 0.235294, 1)
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="Clip_Size_Label" type="Label" parent="Ammo_Container"]
+[node name="Mag_Size_Label" type="Label" parent="Ammo_Container"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
