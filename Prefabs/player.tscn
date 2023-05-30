@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cgg3c110326qu"]
+[gd_scene load_steps=16 format=3 uid="uid://cgg3c110326qu"]
 
 [ext_resource type="Script" path="res://Scipts/player.gd" id="1_y8cep"]
 [ext_resource type="Environment" uid="uid://cn42io4i8kop5" path="res://Environment.tres" id="2_wg3ro"]
@@ -6,6 +6,7 @@
 [ext_resource type="ArrayMesh" uid="uid://ivjhv4d0pm5p" path="res://Meshes/Gun/Rifle_Body.res" id="3_wg3jm"]
 [ext_resource type="ArrayMesh" uid="uid://beqpauwn8eylu" path="res://Meshes/Gun/Rifle_Magazine.res" id="4_vffpi"]
 [ext_resource type="ArrayMesh" uid="uid://cjvxkco3kd2am" path="res://Meshes/Gun/Rifle_Bolt.res" id="5_04wa1"]
+[ext_resource type="PackedScene" uid="uid://bv8es6symo2av" path="res://Prefabs/UI/pause_screen.tscn" id="7_4kqaf"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_um0hy"]
 
@@ -183,3 +184,5 @@ scale_amount_curve = SubResource("Curve_6j8fi")
 libraries = {
 "": SubResource("AnimationLibrary_5n1gk")
 }
+
+[node name="Pause Screen" parent="." instance=ExtResource("7_4kqaf")]

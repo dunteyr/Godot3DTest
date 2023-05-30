@@ -1,12 +1,16 @@
-[gd_scene format=3 uid="uid://bv8es6symo2av"]
+[gd_scene load_steps=2 format=3 uid="uid://bv8es6symo2av"]
 
-[node name="ColorRect" type="ColorRect"]
+[ext_resource type="Script" path="res://Scipts/pause_screen.gd" id="1_1fyca"]
+
+[node name="Pause Screen" type="ColorRect"]
+process_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.145098, 0.145098, 0.145098, 0)
+script = ExtResource("1_1fyca")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1

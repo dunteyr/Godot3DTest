@@ -37,7 +37,6 @@ var pre_recoil_gun_pos
 
 #Happens once at beginning
 func _ready():
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	pre_recoil_gun_pos = gun.position
 	
 	
@@ -121,9 +120,6 @@ func _input(event):
 		
 		
 func _process(delta):
-
-	if Input.is_action_pressed("pause"):
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	
 	shoot_raycast.set_target_position(Vector3(0.0, 0.0, -1.0) * ray_distance)
 	shoot_target = shoot_raycast.get_collision_point();
