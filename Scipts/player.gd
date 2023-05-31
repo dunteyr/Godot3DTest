@@ -196,9 +196,11 @@ func fire_projectile(delta):
 		else:
 			current_shots_fired = 0
 	else:
-		#reload is run every frame that the player is reloading in _process
-		#without this if, the reload would be run twice a frame
-		if !is_reloading:
+		#reload is run every frame that the player is reloading in _process.
+		#!is_reloading stops reload from running another time every frame.
+		#is_firing makes it so if you cancel the reload by sprinting, it doesn't automatically
+		#try to reload again. The player has to press R or try to fire
+		if !is_reloading && is_firing:
 			reload(delta)
 		
 	
