@@ -29,6 +29,7 @@ extends CharacterBody3D
 
 var is_sprinting = false
 var is_reloading = false
+var current_reload_time = 0.0
 var target_velocity = Vector3.ZERO
 var shoot_target = Vector3.ZERO
 var ray_distance = 100
@@ -71,8 +72,7 @@ func _physics_process(delta):
 	if(Input.is_action_pressed("sprint")):
 		#cancel the reload if player sprints while reloading
 		if is_reloading:
-			is_reloading = false
-			animation.play("RESET")
+			reload(delta, true) #argument makes the reload cancel itself
 			
 		target_velocity.x = direction.x * (speed + ((1 - sprint_mod) * speed))
 		target_velocity.z = direction.z * (speed + ((1 - sprint_mod) * speed))
@@ -106,11 +106,11 @@ func _physics_process(delta):
 	#reload input listening
 	if Input.is_action_just_pressed("reload"):
 		if !is_sprinting:		
-			reload()
+			reload(delta)
 	
 	#reload is called every frame to check if the animation is done. Could be done using animation player signal
 	if is_reloading:
-		reload()
+		reload(delta)
 		
 func _input(event):
 	
@@ -199,7 +199,7 @@ func fire_projectile(delta):
 		#reload is run every frame that the player is reloading in _process
 		#without this if, the reload would be run twice a frame
 		if !is_reloading:
-			reload()
+			reload(delta)
 		
 	
 
@@ -263,24 +263,41 @@ func recoil(delta):
 			gun.position.z = pre_recoil_gun_pos.z
 
 
-func reload():
-	print("reloading")
+func reload(delta, cancel_reload = false):
 	
-	#when starting reload. play the animation and set is_reloading
-	if !is_reloading:
-		is_reloading = true
-		animation.play("reload", -1, reload_speed)
-	#if gun is currently reloading
-	elif is_reloading:
-		if animation.is_playing():
-			#if reload animation isn't playing set the new shots remaining and emit signal
-			if animation.current_animation != "reload":
+	#the threshold is based on normal speed, but the animation is played faster
+	var cancel_forgive_thresh = 2.1
+	var scaled_forgive = cancel_forgive_thresh / reload_speed
+	
+	if !cancel_reload:		
+		#when starting reload. play the animation and set is_reloading
+		if !is_reloading:
+			current_reload_time = 0.0
+			is_reloading = true
+			animation.play("reload", -1, reload_speed)
+		#if gun is currently reloading
+		elif is_reloading:
+			if animation.is_playing():
+				#if reload animation isn't playing set the new shots remaining and emit signal
+				if animation.current_animation != "reload":
+					shots_remaining = magazine_size
+					reloaded.emit(shots_remaining)
+					is_reloading = false
+				else:
+					current_reload_time += delta
+			#if an animation is playing that isnt reload, set new shots remaining and emit signal
+			else:
 				shots_remaining = magazine_size
 				reloaded.emit(shots_remaining)
 				is_reloading = false
-		#if an animation is playing that isnt reload, set new shots remaining and emit signal
-		else:
-			shots_remaining = magazine_size
-			reloaded.emit(shots_remaining)
-			is_reloading = false
-		
+				
+	#if the reload animation has been playing for longer than the forgiveness time
+	#complete the reload. If it hasn't, stop the reload without completing it
+	elif cancel_reload:
+		if animation.is_playing() && animation.current_animation == "reload":
+			if current_reload_time >= scaled_forgive:
+				shots_remaining = magazine_size
+				reloaded.emit(shots_remaining)
+				is_reloading = false
+			else:
+				is_reloading = false		
