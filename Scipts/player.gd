@@ -105,7 +105,8 @@ func _physics_process(delta):
 	
 	#reload input listening
 	if Input.is_action_just_pressed("reload"):
-		reload()
+		if !is_sprinting:		
+			reload()
 	
 	#reload is called every frame to check if the animation is done. Could be done using animation player signal
 	if is_reloading:

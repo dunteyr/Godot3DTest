@@ -170,6 +170,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector3(0.33, 0.32, -0.277), Vector3(0.316, 0.238, -0.299), Vector3(0.302, 0.32, -0.32), Vector3(0.316, 0.238, -0.299), Vector3(0.33, 0.32, -0.277)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Rifle_Body/Magazine:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-4.059, -5.874, 0)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5n1gk"]
 _data = {
