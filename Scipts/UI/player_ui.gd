@@ -7,6 +7,7 @@ extends Control
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	player.bullet_fired.connect(update_ammo_label)
+	player.reloaded.connect(update_ammo_label)
 	init_ammo_label(player.magazine_size)
 
 

@@ -8,6 +8,7 @@ extends CharacterBody3D
 @export var fire_rate = 0.05
 @export var bullet_speed = 200
 @export var magazine_size = 30
+@export var reload_speed = 1.4
 @export var camera_recoil_amount = 0.2
 @export var recoil_amount = 0.003
 @export var recoil_damping = 0.1
@@ -27,6 +28,7 @@ extends CharacterBody3D
 @onready var muzzle_flash : CPUParticles3D = get_node("Head/Gun/Rifle_Body/Muzzle_Flash")
 
 var is_sprinting = false
+var is_reloading = false
 var target_velocity = Vector3.ZERO
 var shoot_target = Vector3.ZERO
 var ray_distance = 100
@@ -38,6 +40,7 @@ var current_recoil_vel = 0.0
 var pre_recoil_gun_pos
 
 signal bullet_fired(shots_remaining)
+signal reloaded(mag_size)
 
 #Happens once at beginning
 func _ready():
@@ -66,6 +69,11 @@ func _physics_process(delta):
 	direction = (basis * Vector3(direction.x, direction.y, direction.z)).normalized()
 	
 	if(Input.is_action_pressed("sprint")):
+		#cancel the reload if player sprints while reloading
+		if is_reloading:
+			is_reloading = false
+			animation.play("RESET")
+			
 		target_velocity.x = direction.x * (speed + ((1 - sprint_mod) * speed))
 		target_velocity.z = direction.z * (speed + ((1 - sprint_mod) * speed))
 		is_sprinting = true
@@ -95,7 +103,14 @@ func _physics_process(delta):
 	#move using the velocity
 	self.move_and_slide()
 	
+	#reload input listening
+	if Input.is_action_just_pressed("reload"):
+		reload()
 	
+	#reload is called every frame to check if the animation is done. Could be done using animation player signal
+	if is_reloading:
+		reload()
+		
 func _input(event):
 	
 	#camera movement and body rotation
@@ -121,10 +136,6 @@ func _input(event):
 					animation.stop()
 			
 			muzzle_flash.emitting = false
-		
-		#reload input listening
-		if event.is_action_pressed("reload"):
-			reload()
 		
 func _process(delta):
 	
@@ -184,7 +195,11 @@ func fire_projectile(delta):
 		else:
 			current_shots_fired = 0
 	else:
-		reload()
+		#reload is run every frame that the player is reloading in _process
+		#without this if, the reload would be run twice a frame
+		if !is_reloading:
+			reload()
+		
 	
 
 func apply_recoil_force(scale_with_fire_rate = false):
@@ -248,4 +263,23 @@ func recoil(delta):
 
 
 func reload():
-	print("reloaded")
+	print("reloading")
+	
+	#when starting reload. play the animation and set is_reloading
+	if !is_reloading:
+		is_reloading = true
+		animation.play("reload", -1, reload_speed)
+	#if gun is currently reloading
+	elif is_reloading:
+		if animation.is_playing():
+			#if reload animation isn't playing set the new shots remaining and emit signal
+			if animation.current_animation != "reload":
+				shots_remaining = magazine_size
+				reloaded.emit(shots_remaining)
+				is_reloading = false
+		#if an animation is playing that isnt reload, set new shots remaining and emit signal
+		else:
+			shots_remaining = magazine_size
+			reloaded.emit(shots_remaining)
+			is_reloading = false
+		
