@@ -105,7 +105,8 @@ func _physics_process(delta):
 	
 	#reload input listening
 	if Input.is_action_just_pressed("reload"):
-		if !is_sprinting:		
+		#can't reload while sprinting or with a full mag
+		if !is_sprinting && shots_remaining < magazine_size:		
 			reload(delta)
 	
 	#reload is called every frame to check if the animation is done. Could be done using animation player signal
@@ -132,32 +133,19 @@ func _input(event):
 			is_firing = false
 			fire_timer = fire_rate
 			
-			if animation.is_playing():
-				if animation.get_current_animation() == "recoil":
-					animation.stop()
-			
 			muzzle_flash.emitting = false
 		
 func _process(delta):
 	
-	shoot_raycast.set_target_position(Vector3(0.0, 0.0, -1.0) * ray_distance)
-	shoot_target = shoot_raycast.get_collision_point();
-	#update_aim()
-	
 	if !is_sprinting:
 		fire_projectile(delta)
-		
-	
-func update_aim():
-	if shoot_target != Vector3.ZERO:
-		gun.look_at(shoot_target)
 		
 
 func fire_projectile(delta):
 	#manages recoil
 	recoil(delta)
 	
-	if shots_remaining > 0:
+	if shots_remaining > 0 && !is_reloading:
 		if is_firing:
 			muzzle_flash.emitting = false
 			#on the first shot set timer to 0, so first shot happens on click
