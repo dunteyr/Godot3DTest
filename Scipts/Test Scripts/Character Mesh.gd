@@ -10,7 +10,7 @@ var ragdoll = false
 func _ready():
 	animation.play("Low Poly Character/Low Poly T Pose")	
 	#animation.play("Low Poly Character/Low Poly Idle")
-	mesh.set_visible(true)
+	make_bones_visible()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -22,9 +22,20 @@ func _process(delta):
 
 func enable_ragdoll():
 	var active_bones : Array
-	var right_foot = skeleton.find_bone("mixamorig_RightFoot")
 	
-	active_bones.push_back(skeleton.get_bone_name(right_foot))
+	active_bones.push_back("mixamorig_RightFoot")
+	active_bones.push_back("mixamorig_LeftFoot")
+	active_bones.push_back("mixamorig_RightLeg")
+	active_bones.push_back("mixamorig_LeftLeg")
 	
 	skeleton.physical_bones_start_simulation(active_bones)
+	
+
+func make_bones_visible():
+	var bones = skeleton.find_children("*")
+	for node in bones:
+		node.set_visible(true)
+	
+	
+	
 	
