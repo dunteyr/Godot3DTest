@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://c7o7ahb42syps"]
+[gd_scene load_steps=45 format=3 uid="uid://c7o7ahb42syps"]
 
 [ext_resource type="PackedScene" uid="uid://cgg3c110326qu" path="res://Prefabs/player.tscn" id="1_3frmu"]
 [ext_resource type="Script" path="res://Scipts/Scene_Manager.gd" id="1_e4bih"]
@@ -16,6 +16,7 @@
 [ext_resource type="Shader" path="res://Shaders/grass.gdshader" id="13_ws5vs"]
 [ext_resource type="Texture2D" uid="uid://ceofix6s8hipc" path="res://Textures/Grass_Noise/Grass_Noise.res" id="14_qwnk4"]
 [ext_resource type="Shader" path="res://Shaders/Basic_Wall.gdshader" id="15_ri31b"]
+[ext_resource type="PackedScene" uid="uid://1v6xo0pn5y3u" path="res://Prefabs/Low Poly Character.tscn" id="17_tack2"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fyal0"]
 
@@ -213,3 +214,7 @@ mesh = SubResource("BoxMesh_ngvk6")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Wall"]
 shape = SubResource("BoxShape3D_7w4bg")
+
+[node name="Low Poly Character" parent="." instance=ExtResource("17_tack2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.36468, 0, -8.25325)
+ragdoll = true
