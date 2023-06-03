@@ -216,5 +216,4 @@ mesh = SubResource("BoxMesh_ngvk6")
 shape = SubResource("BoxShape3D_7w4bg")
 
 [node name="Low Poly Character" parent="." instance=ExtResource("17_tack2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.36468, 0, -8.25325)
-ragdoll = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.462001, 1.76325, -3.98905)
