@@ -27,6 +27,8 @@ func enable_ragdoll():
 	active_bones.push_back("mixamorig_LeftFoot")
 	active_bones.push_back("mixamorig_RightLeg")
 	active_bones.push_back("mixamorig_LeftLeg")
+	active_bones.push_back("mixamorig_RightUpLeg")
+	active_bones.push_back("mixamorig_LeftUpLeg")
 	
 	skeleton.physical_bones_start_simulation(active_bones)
 	

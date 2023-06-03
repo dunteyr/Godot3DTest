@@ -218,6 +218,9 @@ shape = SubResource("BoxShape3D_7w4bg")
 [node name="Low Poly Character" parent="." instance=ExtResource("17_tack2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.370001, 1.59624, -3.98905)
 
+[node name="Low Poly Character4" parent="." instance=ExtResource("17_tack2")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 4.3029, 1.59624, -5.0205)
+
 [node name="Low Poly Character3" parent="." instance=ExtResource("17_tack2")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -1.63, 1.88133, -3.14304)
 
