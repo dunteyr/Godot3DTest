@@ -29,6 +29,9 @@ func enable_ragdoll():
 	active_bones.push_back("mixamorig_LeftLeg")
 	active_bones.push_back("mixamorig_RightUpLeg")
 	active_bones.push_back("mixamorig_LeftUpLeg")
+	#hips makes the whole ragdoll fall
+	#active_bones.push_back("mixamorig_Hips")
+	active_bones.push_back("mixamorig_Spine")
 	
 	skeleton.physical_bones_start_simulation(active_bones)
 	
