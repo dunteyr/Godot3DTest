@@ -1,6 +1,6 @@
 extends Node3D
 
-var ragdoll = false
+@export var start_animated = false
 
 @onready var animation : AnimationPlayer = get_node("AnimationPlayer")
 @onready var skeleton : Skeleton3D = get_node("Armature/Skeleton3D")
@@ -8,7 +8,11 @@ var ragdoll = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	animation.play("Low Poly Character/Low Poly T Pose")	
+	if start_animated:
+		animation.play("Low Poly Character/Low Poly Idle")
+	else:
+		animation.play("Low Poly Character/Low Poly T Pose")	
+		
 	#animation.play("Low Poly Character/Low Poly Idle")
 	make_bones_visible()
 
@@ -32,6 +36,11 @@ func enable_ragdoll():
 	#hips makes the whole ragdoll fall
 	#active_bones.push_back("mixamorig_Hips")
 	active_bones.push_back("mixamorig_Spine")
+	active_bones.push_back("mixamorig_Spine2")
+	active_bones.push_back("mixamorig_LeftShoulder")
+	active_bones.push_back("mixamorig_LeftArm")
+	active_bones.push_back("mixamorig_LeftForeArm")
+	active_bones.push_back("mixamorig_LeftHand")
 	
 	skeleton.physical_bones_start_simulation(active_bones)
 	
