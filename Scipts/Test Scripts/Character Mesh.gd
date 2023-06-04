@@ -26,6 +26,7 @@ func _process(delta):
 
 func enable_ragdoll():
 	var active_bones : Array
+	animation.stop()
 	
 	active_bones.push_back("mixamorig_RightFoot")
 	active_bones.push_back("mixamorig_LeftFoot")
@@ -47,7 +48,7 @@ func enable_ragdoll():
 	active_bones.push_back("mixamorig_RightForeArm")
 	active_bones.push_back("mixamorig_RightHand")
 	
-	skeleton.physical_bones_start_simulation(active_bones)
+	skeleton.physical_bones_start_simulation()
 	
 
 func make_bones_visible():
