@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://soxmtd6d0diw"
-path="res://.godot/imported/Gun Attempt.gltf-8a400a6ab6149d481bc5d2b4c970127c.scn"
+path="res://.godot/imported/Gun Attempt.gltf-8055330ca9d0ec52a721f0dc3c52c663.scn"
 
 [deps]
 
-source_file="res://Meshes/Gun Attempt.gltf"
-dest_files=["res://.godot/imported/Gun Attempt.gltf-8a400a6ab6149d481bc5d2b4c970127c.scn"]
+source_file="res://Imported/Gun Attempt.gltf"
+dest_files=["res://.godot/imported/Gun Attempt.gltf-8055330ca9d0ec52a721f0dc3c52c663.scn"]
 
 [params]
 

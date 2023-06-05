@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://l5ga8i43vle8"
-path="res://.godot/imported/Rigged Character.gltf-1d56d99650efb9efb08369004da46525.scn"
+path="res://.godot/imported/Rigged Character.gltf-a9d580fb4e724a2ca93f37fc5d84de62.scn"
 
 [deps]
 
-source_file="res://Meshes/Rigged Character.gltf"
-dest_files=["res://.godot/imported/Rigged Character.gltf-1d56d99650efb9efb08369004da46525.scn"]
+source_file="res://Imported/Rigged Character.gltf"
+dest_files=["res://.godot/imported/Rigged Character.gltf-a9d580fb4e724a2ca93f37fc5d84de62.scn"]
 
 [params]
 
