@@ -1,11 +1,22 @@
 extends Node3D
 
-@onready var animation = get_node("AnimationPlayer")
-# Called when the node enters the scene tree for the first time.
+@onready var animation : AnimationPlayer = get_node("AnimationPlayer")
+@onready var skeleton : Skeleton3D = get_node("Armature/Skeleton3D")
+@onready var mesh : MeshInstance3D = get_node("Armature/Skeleton3D/Stick")
+
 func _ready():
 	animation.play("Ragdoll Test/TestAnim")
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+
 func _process(_delta):
-	pass
+	if Input.is_action_just_pressed("Interact"):
+		enable_ragdoll()
+
+
+func enable_ragdoll():
+	var active_bones : Array
+	animation.stop()
+	
+	active_bones.push_back("Bone")
+	skeleton.physical_bones_start_simulation(active_bones)
