@@ -6,6 +6,7 @@ extends Node3D
 
 func _ready():
 	animation.play("Ragdoll Test/TestAnim")
+	make_bones_visible()
 
 
 
@@ -18,5 +19,12 @@ func enable_ragdoll():
 	var active_bones : Array
 	animation.stop()
 	
-	active_bones.push_back("Bone")
+	#active_bones.push_back("Bone")
+	active_bones.push_back("Bone.005")
 	skeleton.physical_bones_start_simulation(active_bones)
+
+
+func make_bones_visible():
+	var bones = skeleton.find_children("*")
+	for node in bones:
+		node.set_visible(true)
