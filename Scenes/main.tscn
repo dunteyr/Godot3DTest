@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://c7o7ahb42syps"]
+[gd_scene load_steps=46 format=3 uid="uid://c7o7ahb42syps"]
 
 [ext_resource type="PackedScene" uid="uid://cgg3c110326qu" path="res://Prefabs/player.tscn" id="1_3frmu"]
 [ext_resource type="Script" path="res://Scipts/Scene_Manager.gd" id="1_e4bih"]
@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://ceofix6s8hipc" path="res://Textures/Grass_Noise/Grass_Noise.res" id="14_qwnk4"]
 [ext_resource type="Shader" path="res://Shaders/Basic_Wall.gdshader" id="15_ri31b"]
 [ext_resource type="PackedScene" uid="uid://1v6xo0pn5y3u" path="res://Prefabs/Low Poly Character.tscn" id="17_tack2"]
+[ext_resource type="PackedScene" uid="uid://qxhuqgm4v6q0" path="res://Prefabs/Test Prefabs/ragdoll_test.tscn" id="18_qjstl"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fyal0"]
 
@@ -230,3 +231,6 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -1.63,
 
 [node name="Low Poly Character2" parent="." instance=ExtResource("17_tack2")]
 transform = Transform3D(-1, -8.74228e-08, 0, 8.74228e-08, -1, 0, 0, 0, 1, 2.42091, 3.583, -3.98905)
+
+[node name="Ragdoll Test" parent="." instance=ExtResource("18_qjstl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2587, 0, -1.27676)
