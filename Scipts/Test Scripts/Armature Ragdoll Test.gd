@@ -17,10 +17,14 @@ func _process(_delta):
 
 func enable_ragdoll():
 	var active_bones : Array
-	animation.stop()
+	#animation.stop()
 	
-	#active_bones.push_back("Bone")
+	active_bones.push_back("Bone")
 	active_bones.push_back("Bone.005")
+	active_bones.push_back("Bone.004")
+	active_bones.push_back("Bone.003")
+	active_bones.push_back("Bone.002")
+	active_bones.push_back("Bone.001")
 	skeleton.physical_bones_start_simulation(active_bones)
 
 

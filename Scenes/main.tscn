@@ -233,4 +233,4 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -1.63,
 transform = Transform3D(-1, -8.74228e-08, 0, 8.74228e-08, -1, 0, 0, 0, 1, 2.42091, 3.583, -3.98905)
 
 [node name="Ragdoll Test" parent="." instance=ExtResource("18_qjstl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2587, 1.56796, -1.27676)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14291, 2.05078, -2.6536)
