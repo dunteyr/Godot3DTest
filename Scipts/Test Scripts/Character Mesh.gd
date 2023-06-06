@@ -26,7 +26,7 @@ func _process(delta):
 
 func enable_ragdoll():
 	var active_bones : Array
-	animation.stop()
+
 	
 	active_bones.push_back("mixamorig_RightFoot")
 	active_bones.push_back("mixamorig_LeftFoot")
