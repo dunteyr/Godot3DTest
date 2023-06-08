@@ -41,10 +41,10 @@ func enable_ragdoll():
 #	active_bones.push_back("mixamorig_Head")
 #	active_bones.push_back("mixamorig_LeftArm")
 #	active_bones.push_back("mixamorig_LeftForeArm")
-	active_bones.push_back("mixamorig_LeftHand")
-#	active_bones.push_back("mixamorig_RightArm")
-#	active_bones.push_back("mixamorig_RightForeArm")
-#	active_bones.push_back("mixamorig_RightHand")
+#	active_bones.push_back("mixamorig_LeftHand")
+	active_bones.push_back("mixamorig_RightArm")
+	active_bones.push_back("mixamorig_RightForeArm")
+	active_bones.push_back("mixamorig_RightHand")
 	
 	skeleton.physical_bones_start_simulation(active_bones)
 	
