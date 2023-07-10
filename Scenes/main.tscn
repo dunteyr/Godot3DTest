@@ -1,8 +1,9 @@
-[gd_scene load_steps=46 format=3 uid="uid://c7o7ahb42syps"]
+[gd_scene load_steps=43 format=3 uid="uid://c7o7ahb42syps"]
 
 [ext_resource type="PackedScene" uid="uid://cgg3c110326qu" path="res://Prefabs/player.tscn" id="1_3frmu"]
 [ext_resource type="Script" path="res://Scipts/Scene_Manager.gd" id="1_e4bih"]
 [ext_resource type="Environment" uid="uid://cn42io4i8kop5" path="res://Environment.tres" id="2_04u7r"]
+[ext_resource type="Material" uid="uid://bxvaycnh1gt86" path="res://Shaders/MaterialMaker/TiledFloor.tres" id="2_ongmk"]
 [ext_resource type="Shader" path="res://Shaders/PlaneVertex.gdshader" id="2_xw0l4"]
 [ext_resource type="PackedScene" uid="uid://dcjne84v6gfcv" path="res://Prefabs/flat_rock.tscn" id="4_yyj2t"]
 [ext_resource type="PackedScene" uid="uid://bb87k4gpwy4su" path="res://Prefabs/tall_rock.tscn" id="5_agbqa"]
@@ -16,28 +17,13 @@
 [ext_resource type="Shader" path="res://Shaders/grass.gdshader" id="13_ws5vs"]
 [ext_resource type="Texture2D" uid="uid://ceofix6s8hipc" path="res://Textures/Grass_Noise/Grass_Noise.res" id="14_qwnk4"]
 [ext_resource type="Shader" path="res://Shaders/Basic_Wall.gdshader" id="15_ri31b"]
-[ext_resource type="PackedScene" uid="uid://1v6xo0pn5y3u" path="res://Prefabs/Low Poly Character.tscn" id="17_tack2"]
-[ext_resource type="PackedScene" uid="uid://qxhuqgm4v6q0" path="res://Prefabs/Test Prefabs/ragdoll_test.tscn" id="18_qjstl"]
+[ext_resource type="PackedScene" uid="uid://b3kb5j201ba1i" path="res://Imported/Low Poly Character (Fixed Armature Godot).gltf" id="17_jqim8"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fyal0"]
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_ul0p5"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_p6bhk"]
-width = 5430
-height = 5430
-noise = SubResource("FastNoiseLite_ul0p5")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wh0cp"]
-metallic = 1.0
-roughness_texture = SubResource("NoiseTexture2D_p6bhk")
-rim = 0.48
-rim_tint = 0.76
-clearcoat_roughness = 0.71
-
 [sub_resource type="BoxMesh" id="BoxMesh_thae2"]
 lightmap_size_hint = Vector2i(14, 21)
-material = SubResource("StandardMaterial3D_wh0cp")
+material = ExtResource("2_ongmk")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_x6avn"]
 noise_type = 0
@@ -216,21 +202,5 @@ mesh = SubResource("BoxMesh_ngvk6")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Wall"]
 shape = SubResource("BoxShape3D_7w4bg")
 
-[node name="Low Poly Character" parent="." instance=ExtResource("17_tack2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.370001, 1.59624, -3.98905)
-
-[node name="Low Poly Character5" parent="." instance=ExtResource("17_tack2")]
-transform = Transform3D(0.81447, 0, 0.580206, 0, 1, 0, -0.580206, 0, 0.81447, -3.98993, 0, -3.61899)
-start_animated = true
-
-[node name="Low Poly Character4" parent="." instance=ExtResource("17_tack2")]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 4.3029, 1.59624, -5.0205)
-
-[node name="Low Poly Character3" parent="." instance=ExtResource("17_tack2")]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -1.63, 1.88133, -3.14304)
-
-[node name="Low Poly Character2" parent="." instance=ExtResource("17_tack2")]
-transform = Transform3D(-1, -8.74228e-08, 0, 8.74228e-08, -1, 0, 0, 0, 1, 2.42091, 3.583, -3.98905)
-
-[node name="Ragdoll Test" parent="." instance=ExtResource("18_qjstl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.85709, 2.05078, -0.653599)
+[node name="Low Poly Character (Fixed Armature Godot)" parent="." instance=ExtResource("17_jqim8")]
+transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 3.86618, 0, -8.47373)

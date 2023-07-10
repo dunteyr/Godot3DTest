@@ -1,0 +1,22 @@
+[gd_resource type="StandardMaterial3D" load_steps=5 format=3 uid="uid://bxvaycnh1gt86"]
+
+[ext_resource type="Texture2D" uid="uid://daav2xnprsdl" path="res://Shaders/MaterialMaker/TiledFloor_albedo.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://4w6f1mnwyccq" path="res://Shaders/MaterialMaker/TiledFloor_orm.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://c6kexta3b340y" path="res://Shaders/MaterialMaker/TiledFloor_normal.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://36ntxe4ylxhk" path="res://Shaders/MaterialMaker/TiledFloor_heightmap.png" id="4"]
+
+[resource]
+albedo_texture = ExtResource("1")
+roughness = 0.59
+roughness_texture = ExtResource("2")
+normal_enabled = true
+normal_texture = ExtResource("3")
+ao_enabled = true
+ao_texture = ExtResource("2")
+heightmap_enabled = true
+heightmap_scale = 9.0
+heightmap_deep_parallax = true
+heightmap_min_layers = 8
+heightmap_max_layers = 32
+heightmap_texture = ExtResource("4")
+uv1_scale = Vector3(100, 66.664, 66.664)
