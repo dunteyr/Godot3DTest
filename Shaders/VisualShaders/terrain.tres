@@ -1,0 +1,27 @@
+[gd_resource type="VisualShader" load_steps=2 format=3 uid="uid://bqbsjrnf5utgv"]
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_x0tss"]
+output_port_for_preview = 0
+expanded_output_ports = [0]
+input_name = "fragcoord"
+
+[resource]
+code = "shader_type spatial;
+
+
+
+void fragment() {
+// Input:4
+	vec4 n_out4p0 = FRAGCOORD;
+
+
+// Output:0
+	ALBEDO = vec3(n_out4p0.xyz);
+
+
+}
+"
+graph_offset = Vector2(-399.366, -255.246)
+nodes/fragment/4/node = SubResource("VisualShaderNodeInput_x0tss")
+nodes/fragment/4/position = Vector2(-220, 200)
+nodes/fragment/connections = PackedInt32Array(4, 0, 0, 0)
