@@ -22,6 +22,26 @@ uniform float grass_smooth : hint_range(0.0, 1.0, 0.01);
 uniform float dirt_thresh : hint_range(0.0, 1.0, 0.01);
 uniform float dirt_smooth : hint_range(0.0, 1.0, 0.01);
 
+struct NormalInfo{
+	vec3 normal;
+	vec3 binormal;
+	vec3 tangent;
+};
+
+vec3 get_applied_normals(NormalInfo normal, vec3 normal_map){
+	
+	//convert to -1 to 1
+	normal_map *= vec3(2.0);
+	normal_map -= vec3(1.0);
+	
+	//calculate z normal because godot doesn't store it for some reason
+	normal_map.z = sqrt(1.0 - normal_map.x * normal_map.x - normal_map.y * normal_map.y);
+	
+	vec3 applied_normal = normal_map.x * normal.tangent + normal_map.y * normal.binormal + normal_map.z * normal.normal;
+	
+	return applied_normal;
+}
+
 float steep_mask(mat4 inv_view_mat, vec3 normal, float thresh, float smoothness){
 	
 	vec3 up = vec3(0.0, 1.0, 0.0);
@@ -46,9 +66,17 @@ vec3 mask_blend(sampler2D texture1, vec2 uv1, sampler2D texture2, vec2 uv2, floa
 
 void fragment() {
 	
+	NormalInfo normal_info;
+	normal_info.normal = NORMAL;
+	normal_info.binormal = BINORMAL;
+	normal_info.tangent = TANGENT;
+	
 	vec2 grass_uv = UV * grass_uv_scale;
 	vec2 dirt_uv = UV * dirt_uv_scale;
 	vec2 stone_uv = UV * stone_uv_scale;
+	
+	vec3 dirt_app_norm = get_applied_normals(normal_info, texture(stone_normal, stone_uv).rgb);
+	vec3 grass_app_norm = get_applied_normals(normal_info, texture(grass_normal, grass_uv).rgb);
 	
 	float dirt_mask = steep_mask(INV_VIEW_MATRIX, NORMAL, grass_thresh, grass_smooth);
 	float grass_mask = steep_mask(INV_VIEW_MATRIX, NORMAL, dirt_thresh, dirt_smooth);

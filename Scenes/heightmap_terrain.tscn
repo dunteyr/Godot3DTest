@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://cbqnnvx2f5rjr"]
+
+[ext_resource type="PackedScene" uid="uid://cgg3c110326qu" path="res://Prefabs/player.tscn" id="1_l21k1"]
+[ext_resource type="Environment" uid="uid://cn42io4i8kop5" path="res://Environment.tres" id="2_2wwnh"]
+[ext_resource type="Shader" uid="uid://bq21q4aohymlr" path="res://Shaders/VisualShaders/heightmap_terrain.tres" id="2_qj2wp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jg5ex"]
+render_priority = 0
+shader = ExtResource("2_qj2wp")
+shader_parameter/ColorParameter = Color(0.294118, 0.176471, 0, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_n8nkc"]
+material = SubResource("ShaderMaterial_jg5ex")
+size = Vector2(300, 300)
+subdivide_width = 500
+subdivide_depth = 500
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jmbr3"]
+size = Vector3(300, 0.5, 300)
+
+[node name="Heightmap_Terrain" type="Node3D"]
+
+[node name="Player" parent="." instance=ExtResource("1_l21k1")]
+
+[node name="Terrain" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Terrain"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.16127, -1.09406, -3.10107)
+mesh = SubResource("PlaneMesh_n8nkc")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+shape = SubResource("BoxShape3D_jmbr3")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("2_2wwnh")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.620039, 0.784571, 0, -0.784571, -0.620039, 0, 6.7958, 0)
